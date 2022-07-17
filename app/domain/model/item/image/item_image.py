@@ -17,10 +17,12 @@ class Color:
 
 @dataclass(init=False, unsafe_hash=True, frozen=True)
 class ItemImage:
-    # type: ImageType
+    type: ImageType
     # color: Color
     url: URL
 
-    def __init__(self, url: URL):
+    def __init__(self, type: ImageType, url: URL):
+        assert isinstance(type, ImageType), "画像タイプは必須です"
         assert isinstance(url, URL), "画像URLは必須です"
+        super().__setattr__("type", type)
         super().__setattr__("url", url)

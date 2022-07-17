@@ -1,12 +1,12 @@
-from typing import Optional
+from typing import Optional, Set
 
 from fastapi import APIRouter
 
 from application.item.command import SaveItemCommand
 from application.item.service import ItemApplicationService, SearchItemApplicationService
 from di import DIManager
-from port.adapter.resource.item.request import RequestSaveItem, RequestSearchItem
-from port.adapter.resource.item.response import SearchHitItemsJson, GetItemJson
+from port.adapter.resource.item.request import RequestSaveItem
+from port.adapter.resource.item.response import SearchHitItemsJson, GetItemJson, GetItemListJson
 
 router = APIRouter(
     prefix="/items",
@@ -20,29 +20,15 @@ search_item_application_service = DIManager.get(SearchItemApplicationService)
 @router.get("/search", response_model=SearchHitItemsJson, name="アイテム検索機能",
             description="クエリ指定でインデックスに検索し、該当アイテムを返却します。")
 def search(gender: str, keyword: Optional[str] = None,
-           category: Optional[str] = None, colors: Optional[str] = None,
+           category_id: Optional[str] = None, colors: Optional[str] = None,
            designs: Optional[str] = None, details: Optional[str] = None,
            price_from: Optional[int] = None, price_to: Optional[int] = None,
            sort: str = "relevance", start: int = 1, size: int = 20) -> SearchHitItemsJson:
-    # カラー
-    if colors is not None:
-        colors = colors.split(",")
-    else:
-        colors = set()
+    colors: Set[str] = set(colors.split(",")) if colors else set()
+    designs: Set[str] = set(designs.split(",")) if designs else set()  # 柄・デザイン
+    details: Set[str] = set(details.split(",")) if details else set()  # こだわり
 
-    # 柄・デザイン
-    if designs is not None:
-        designs = designs.split(",")
-    else:
-        designs = set()
-
-    # こだわり
-    if details is not None:
-        details = details.split(",")
-    else:
-        details = set()
-
-    dpo = search_item_application_service.search(gender, keyword, category, colors, designs, details,
+    dpo = search_item_application_service.search(gender, keyword, category_id, colors, designs, details,
                                                  price_from, price_to, sort, start, size)
     return SearchHitItemsJson.make_by(dpo, start)
 
@@ -70,6 +56,12 @@ def save(request: RequestSaveItem):
 def get(item_id: str) -> GetItemJson:
     dpo = item_application_service.get(item_id)
     return GetItemJson.make_by(dpo)
+
+
+@router.get("", response_model=GetItemListJson, name="アイテム一覧取得機能")
+def list(ids: str) -> GetItemListJson:
+    dpo = item_application_service.list(ids.split(","))
+    return GetItemListJson.make_by(dpo)
 
 
 @router.delete("/{item_id}", name="アイテム削除機能")
