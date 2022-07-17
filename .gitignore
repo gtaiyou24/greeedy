@@ -1,0 +1,19 @@
+# Files
+*.csv
+*.csv.*
+*.pyc
+*.log
+
+.python-version
+.DS_Store
+
+# Caches
+__pycache__
+.pytest_cache/
+.cache
+
+# PyCharm
+.idea
+
+# Secret
+.env

@@ -1,0 +1,1 @@
+from .elasticsearch_item_index import ElasticsearchItemIndex

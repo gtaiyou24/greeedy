@@ -1,0 +1,60 @@
+version: "3.4"
+
+services:
+  # App
+  app:
+    build: ./app
+    container_name: app
+    environment:
+      - LOG_LEVEL=DEBUG
+      - DI_PROFILE_ACTIVES=mysql,inmemory
+      - MYSQL_USERNAME=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_HOSTNAME=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE_NAME=greeedy
+      - ELASTICSEARCH_HOSTNAME=elasticsearch
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+      - USER_DICTIONARY_PATH=extra/user_dictionary.txt
+      - SYNONYMS_PATH=extra/synonyms.txt
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/
+
+  # Elasticsearch
+  index:
+    build: ./elasticsearch
+    container_name: index
+    env_file:
+      - ./elasticsearch/.env
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-volume:/usr/share/elasticsearch/data
+      - ./elasticsearch/synonyms.txt:/usr/share/elasticsearch/config/extra/synonyms.txt
+      - ./elasticsearch/user_dictionary.txt:/usr/share/elasticsearch/config/extra/user_dictionary.txt
+
+  # DB
+  db:
+    image: mysql:5.7
+    platform: linux/x86_64
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=greeedy
+      - TZ=Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      - mysql-volume:/var/lib/mysql
+
+volumes:
+  elasticsearch-volume:
+    driver: 'local'
+  mysql-volume:
+    driver: 'local'
