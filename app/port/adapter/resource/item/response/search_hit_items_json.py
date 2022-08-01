@@ -22,7 +22,7 @@ class SearchHitItemsJson(BaseModel):
     class Hit(BaseModel):
         class Image(BaseModel):
             type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
-            color: str = Field(default="White", title="カラー")
+            color: str = Field(default="WHITE", title="カラー")
             url: str = Field(title="画像URL")
 
         ranking: int = Field(description="検索結果の順位")

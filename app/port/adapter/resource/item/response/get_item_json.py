@@ -15,7 +15,7 @@ class GetItemJson(BaseModel):
 
     class ItemImage(BaseModel):
         type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
-        color: str = Field(default="White", title="カラー")
+        color: str = Field(default="WHITE", title="カラー")
         url: str = Field(title="画像URL")
 
     id: str = Field(description="アイテムID")
