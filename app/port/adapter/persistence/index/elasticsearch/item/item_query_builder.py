@@ -57,7 +57,7 @@ class ItemQueryBuilder:
 
     def colors(self, colors: Set[Color]) -> ItemQueryBuilder:
         if colors:
-            self.__filter.append(self.__multi_match(' '.join([color.name for color in colors]), self.colors_fields))
+            self.__filter.append(self.__multi_match(' '.join([color.value for color in colors]), self.colors_fields))
         return self
 
     def price(self, price_from: Optional[int], price_to: Optional[int]) -> ItemQueryBuilder:
