@@ -1,30 +1,31 @@
 from typing import Optional
 
+from injector import singleton, inject
+
+from config import MySQLConfig
 from domain.model import DomainEventPublisher, DomainEventSubscriber, DomainEvent
 
 
+@singleton
 class ApplicationServiceLifeCycle:
-    event_store = []
+    @inject
+    def __init__(self, mysql_config: MySQLConfig):
+        self.__session = mysql_config.session()
 
-    @staticmethod
-    def begin(is_listening: bool = True):
+    def begin(self, is_listening: bool = True):
         if is_listening:
-            ApplicationServiceLifeCycle.listen()
-        # TODO : トランザクションスタート
+            self.listen()
+        self.__session.begin()
 
-    @staticmethod
-    def fail(exception: Optional[Exception] = None):
-        # TODO : ロールバック実行
+    def fail(self, exception: Optional[Exception] = None):
+        self.__session.rollback()
         if exception is not None:
             raise exception
 
-    @staticmethod
-    def success():
-        # コミットする
-        pass
+    def success(self):
+        self.__session.commit()
 
-    @staticmethod
-    def listen():
+    def listen(self):
         class DomainEventSubscriberImpl(DomainEventSubscriber):
             event_store = []
 

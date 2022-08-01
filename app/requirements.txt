@@ -11,6 +11,7 @@ injector==0.19.0
 slf4py==0.0.2
 # ORMライブラリ
 SQLAlchemy==1.4.31
+mysqlclient==2.1.1
 # キャッシュ
 cachetools==5.0.0
 # ElasticSearch(Amazon Opensearch Serviceを利用するために7.14より低いバージョンを指定)

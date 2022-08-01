@@ -1,12 +1,15 @@
+from typing import List
+
 from injector import inject, singleton
 
 from application.item.command import SaveItemCommand
-from application.item.dpo import GetItemDpo
+from application.item.dpo import GetItemDpo, GetItemListDpo
+from domain.model.color import Color
 from domain.model.gender import Gender
-from domain.model.item import ItemRepository, Item, ItemName, BrandName, Price, ItemIndex
+from domain.model.item import Item, ItemName, BrandName, Price, ItemIndex, Description
 from domain.model.item.id import ItemId, ItemIdFactory
-from domain.model.item.image import ItemImageList, ItemImage
-from domain.model.item.meta import Meta
+from domain.model.item.image import ItemImageList, ItemImage, ImageType
+from domain.model.page import Page
 from domain.model.url import URL
 from exception import SystemException, ErrorCode
 
@@ -14,10 +17,9 @@ from exception import SystemException, ErrorCode
 @singleton
 class ItemApplicationService:
     @inject
-    def __init__(self, item_repository: ItemRepository,
+    def __init__(self,
                  item_index: ItemIndex,
                  item_id_factory: ItemIdFactory):
-        self.__item_repository = item_repository
         self.__item_index = item_index
         self.__item_id_factory = item_id_factory
 
@@ -27,28 +29,33 @@ class ItemApplicationService:
         else:
             item_id = ItemId(command.id)
 
-        meta = Meta(Meta.MetaName.keywords, command.meta.keywords)
-        meta.set_other_meta(Meta(Meta.MetaName.description, command.meta.description))
-        meta.set_other_meta(Meta(Meta.MetaName.content, command.meta.content))
+        item = Item(
+            item_id, ItemName(command.name), BrandName(command.brand_name),
+            Price(command.price, Price.Currency.JPY),
+            Description(command.description), Gender[command.gender],
+            ItemImageList(
+                [ItemImage(ImageType[image.type], Color[image.color], URL(image.url)) for image in command.images]
+            ),
+            Page(URL(command.url), command.meta.keywords, command.meta.description))
 
-        item = Item(item_id, ItemName(command.name), BrandName(command.brand_name),
-                    Price(command.price, Price.Currency.yen), Gender[command.gender],
-                    ItemImageList([ItemImage(URL(image_url)) for image_url in command.images]),
-                    URL(command.url), meta)
-
-        self.__item_repository.save(item)
         self.__item_index.add(item)
 
-    def get(self, an_id: str) -> GetItemDpo:
-        item_id = ItemId(an_id)
-        optional_item = self.__item_repository.item_of(item_id)
+    def get(self, an_item_id: str) -> GetItemDpo:
+        optional_item = self.__item_index.get(ItemId(an_item_id))
 
         if optional_item is None:
-            raise SystemException(ErrorCode.ITEM_NOT_FOUND, "アイテムID={}".format(item_id.value))
+            raise SystemException(ErrorCode.ITEM_NOT_FOUND, "アイテムID={}".format(an_item_id))
 
         return GetItemDpo(optional_item)
 
-    def delete(self, an_id: str):
-        item_id = ItemId(an_id)
-        self.__item_repository.delete(item_id)
+    def list(self, an_item_ids: List[str]) -> GetItemListDpo:
+        items = []
+        for _id in an_item_ids:
+            item = self.__item_index.get(ItemId(_id))
+            if item:
+                items.append(item)
+        return GetItemListDpo(items)
+
+    def delete(self, an_item_id: str):
+        item_id = ItemId(an_item_id)
         self.__item_index.delete(item_id)

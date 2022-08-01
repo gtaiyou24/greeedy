@@ -8,14 +8,20 @@ class SaveItemCommand:
     class Meta:
         keywords: str
         description: str
-        content: str
+
+    @dataclass(unsafe_hash=True, frozen=True)
+    class Image:
+        type: str
+        color: str
+        url: str
 
     id: Optional[str]
     name: str
     brand_name: str
     price: float
+    description: str
     gender: str
-    images: List[str]
+    images: List[Image]
     url: str
     meta: Meta
 

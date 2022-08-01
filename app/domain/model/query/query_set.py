@@ -1,14 +1,14 @@
 from dataclasses import dataclass
-from typing import Set, Dict
+from typing import Set
 
 from domain.model.query import Query, Operator
 
 
 @dataclass(init=False, unsafe_hash=True, frozen=True)
 class QuerySet:
-    all: Dict[Operator:Set[Query]]
+    all: dict[Operator:Set[Query]]
 
-    def __init__(self, all: Dict[Operator:Set[Query]]):
+    def __init__(self, all: dict[Operator:Set[Query]]):
         super().__setattr__("all", all)
 
     def queries_of(self, operator: Operator) -> Set[Query]:

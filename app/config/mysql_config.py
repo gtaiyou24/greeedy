@@ -1,6 +1,7 @@
 from injector import inject
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
+from sqlalchemy.orm import scoped_session, sessionmaker, Session
 
 from config.credential import MySQLCredentialGetter
 
@@ -16,6 +17,11 @@ class MySQLConfig:
             port=self.__credential.get_port(),
             db_name=self.__credential.get_database_name(),
         ))
+        session_cls = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=self.__engine))
+        self.__session = session_cls()
 
     def engine(self) -> Engine:
         return self.__engine
+
+    def session(self) -> Session:
+        return self.__session

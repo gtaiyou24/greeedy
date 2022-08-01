@@ -6,7 +6,6 @@ from domain.model.gender import Gender
 from domain.model.item import Item, ItemName, BrandName, Price
 from domain.model.item.id import ItemId
 from domain.model.item.image import ItemImageList, ItemImage
-from domain.model.item.meta import Meta
 from domain.model.url import URL
 from port.adapter.persistence.repository.mysql.item.driver import ItemsCrud, ItemsTableRow
 
@@ -34,10 +33,6 @@ class DriverManagerItem:
 
     @staticmethod
     def __generate_item_from(items_table_row: ItemsTableRow) -> Item:
-        meta = Meta(Meta.MetaName.keywords, items_table_row.meta_keywords)
-        meta.set_other_meta(Meta(Meta.MetaName.description, items_table_row.meta_description))
-        meta.set_other_meta(Meta(Meta.MetaName.content, items_table_row.meta_content))
-
         return Item(
             ItemId(items_table_row.id),
             ItemName(items_table_row.name),
@@ -45,8 +40,7 @@ class DriverManagerItem:
             Price(items_table_row.price, Price.Currency.yen),
             Gender[items_table_row.gender],
             ItemImageList([ItemImage(URL(image_url)) for image_url in eval(items_table_row.images)]),
-            URL(items_table_row.url),
-            meta
+            URL(items_table_row.url)
         )
 
     @staticmethod

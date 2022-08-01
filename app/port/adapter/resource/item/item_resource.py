@@ -18,7 +18,7 @@ search_item_application_service = DIManager.get(SearchItemApplicationService)
 
 
 @router.get("/search", response_model=SearchHitItemsJson, name="アイテム検索機能",
-            description="クエリ指定でインデックスに検索し、該当アイテムを返却します。")
+            description="検索クエリ指定でインデックスに検索し、該当アイテムを返却します。")
 def search(gender: str, keyword: Optional[str] = None,
            category_id: Optional[str] = None, colors: Optional[str] = None,
            designs: Optional[str] = None, details: Optional[str] = None,
@@ -40,13 +40,13 @@ def save(request: RequestSaveItem):
         name=request.name,
         brand_name=request.brand_name,
         price=request.price,
+        description=request.description,
         gender=request.gender,
-        images=request.images,
+        images=[SaveItemCommand.Image(image.type, image.color, image.url) for image in request.images],
         url=request.url,
         meta=SaveItemCommand.Meta(
             keywords=request.meta.keywords,
-            description=request.meta.description,
-            content=request.meta.content
+            description=request.meta.description
         )
     )
     item_application_service.save(command)

@@ -9,7 +9,7 @@ class ElasticsearchConfig:
     def __init__(self, credential: ElasticsearchCredentialGetter):
         self.__credential = credential
         self.__engine = Elasticsearch(
-            self.__credential.get_host(),
+            self.__credential.get_hosts(),
             http_auth=(self.__credential.get_username(), self.__credential.get_password())
         )
 

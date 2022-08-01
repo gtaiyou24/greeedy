@@ -1,9 +1,10 @@
 import os
+from typing import List
 
 
 class ElasticsearchCredentialGetter:
-    def get_host(self) -> str:
-        return os.environ.get("ELASTICSEARCH_HOSTNAME")
+    def get_hosts(self) -> List[str]:
+        return list(os.environ.get("ELASTICSEARCH_HOSTNAME").split(","))
 
     def get_username(self) -> str:
         return os.environ.get("ELASTICSEARCH_USERNAME")

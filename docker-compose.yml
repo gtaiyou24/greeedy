@@ -7,7 +7,7 @@ services:
     container_name: app
     environment:
       - LOG_LEVEL=DEBUG
-      - DI_PROFILE_ACTIVES=mysql,inmemory
+      - DI_PROFILE_ACTIVES=inmemory,elasticsearch
       - MYSQL_USERNAME=user
       - MYSQL_PASSWORD=pass
       - MYSQL_HOSTNAME=mysql
@@ -24,9 +24,9 @@ services:
       - ./app:/app/
 
   # Elasticsearch
-  index:
+  elasticsearch:
     build: ./elasticsearch
-    container_name: index
+    container_name: elasticsearch
     env_file:
       - ./elasticsearch/.env
     ports:
@@ -37,10 +37,10 @@ services:
       - ./elasticsearch/user_dictionary.txt:/usr/share/elasticsearch/config/extra/user_dictionary.txt
 
   # DB
-  db:
+  mysql:
     image: mysql:5.7
     platform: linux/x86_64
-    container_name: db
+    container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=user

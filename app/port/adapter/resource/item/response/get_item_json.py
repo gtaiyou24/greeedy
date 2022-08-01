@@ -14,9 +14,9 @@ class GetItemJson(BaseModel):
         type: str = Field(default="NORMAL_PRICE", title="価格種別", description="NORMAL_PRICE=通常価格")
 
     class ItemImage(BaseModel):
-        # type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
-        # color: str = Field(default="white", title="カラー")
-        image_url: str = Field(title="画像URL")
+        type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
+        color: str = Field(default="White", title="カラー")
+        url: str = Field(title="画像URL")
 
     id: str = Field(description="アイテムID")
     name: str = Field(description="アイテム名")
@@ -33,5 +33,8 @@ class GetItemJson(BaseModel):
                                                         currency=dpo.item.price.currency.name,
                                                         type=dpo.item.price.type.name)],
                            gender=dpo.item.gender.name,
-                           images=[GetItemJson.ItemImage(image_url=image.url.address) for image in dpo.item.images.list],
-                           url=dpo.item.url.address)
+                           images=[
+                               GetItemJson.ItemImage(type=image.type.name, color=image.color.name, url=image.url.address) \
+                               for image in dpo.item.images.list
+                           ],
+                           url=dpo.item.page.url.address)

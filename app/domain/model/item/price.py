@@ -18,10 +18,12 @@ class Price:
         MEMBER_PRICE = "会員価格"
 
     class Currency(Enum):
-        yen = "日本円"
+        JPY = "日本円"
+        USD = "米ドル"
 
     def __init__(self, amount: float, currency: Price.Currency, type: PriceType = PriceType.NORMAL_PRICE):
-        assert (isinstance(amount, float) or isinstance(amount, int)) and amount >= 0, "amountには0以上のfloat/int型を指定してください。"
+        assert (isinstance(amount, float) or isinstance(amount, int)) and amount >= 0, \
+            "amountには0以上のfloat/int型を指定してください。"
         assert isinstance(currency, Price.Currency), "currencyにはPrice.Currency型を指定してください。"
         assert isinstance(type, Price.PriceType), "typeにはPrice.PriceType型を指定してください。"
         super().__setattr__("amount", amount)

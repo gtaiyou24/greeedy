@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, NoReturn
 
 from domain.model.category import CategoryRepository, Category, CategoryId, CategoryName, CategoryTree
 from domain.model.gender import Gender
@@ -185,3 +185,9 @@ class InMemCategoryRepository(CategoryRepository):
             if optional_category is not None:
                 return optional_category
         return None
+
+    def save(self, category: Category) -> NoReturn:
+        pass
+
+    def delete(self, category_id: CategoryId) -> NoReturn:
+        pass

@@ -27,7 +27,8 @@ class ErrorLevel(Enum):
 
 
 class ErrorCode(Enum):
-    ITEM_NOT_FOUND = ('該当アイテムが見つかりません', ErrorLevel.ERROR, HTTPStatus.BAD_REQUEST)
+    ITEM_NOT_FOUND = ('該当アイテムが見つかりません', ErrorLevel.ERROR, HTTPStatus.NOT_FOUND)
+    CATEGORY_NOT_FOUND = ('該当カテゴリが見つかりません', ErrorLevel.ERROR, HTTPStatus.NOT_FOUND)
     DB_CAN_NOT_CONNECT_TO_DATABASE = ('データベースへの接続に失敗しました。', ErrorLevel.CRITICAL, HTTPStatus.INTERNAL_SERVER_ERROR)
     DB_CLIENT_ERROR = ('クライアントエラーが発生しました。', ErrorLevel.ERROR, HTTPStatus.INTERNAL_SERVER_ERROR)
     DB_TIME_OUT = ('タイムアウトが発生しました。', ErrorLevel.WARN, HTTPStatus.INTERNAL_SERVER_ERROR)
