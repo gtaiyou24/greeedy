@@ -17,7 +17,6 @@ class ItemQueryBuilder:
     category_fields = ['name^3', 'keywords']
     designs_fields = ["name^3", "keywords", "description", "content^2"]
     details_fields = ["name^3", "keywords^2", "description^2", "content^2"]
-    colors_fields = ["name", "name.ngram", "keywords", "description", "description.ngram", "content", "content.ngram"]
 
     def __init__(self):
         self.__must = []
@@ -57,7 +56,8 @@ class ItemQueryBuilder:
 
     def colors(self, colors: Set[Color]) -> ItemQueryBuilder:
         if colors:
-            self.__filter.append(self.__multi_match(' '.join([color.value for color in colors]), self.colors_fields))
+            should = [Q('nested', path='images', query=Q('term', **{'images.color': color.name})) for color in colors]
+            self.__filter.append(Q('bool', should=should))
         return self
 
     def price(self, price_from: Optional[int], price_to: Optional[int]) -> ItemQueryBuilder:

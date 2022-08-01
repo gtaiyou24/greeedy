@@ -4,6 +4,7 @@ from injector import singleton, inject
 
 from application.item.dpo import SearchHitItemsDpo
 from domain.model.category import CategoryId, CategoryRepository
+from domain.model.color import Color
 from domain.model.gender import Gender
 from domain.model.item import ItemIndex
 from exception import SystemException, ErrorCode
@@ -22,6 +23,7 @@ class SearchItemApplicationService:
                price_from: Optional[int], price_to: Optional[int],
                sort: str, start: int, size: int) -> SearchHitItemsDpo:
         gender = Gender[a_gender]
+        colors = set([Color[color] for color in colors])
 
         category = None
         if a_category_id:
