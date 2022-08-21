@@ -20,9 +20,8 @@ class ElasticsearchItemIndex(ItemIndex):
     @inject
     def __init__(self, config: ElasticsearchConfig):
         self.__search_engine = config.engine()
-        Index(ItemIndexRow.Index.name, using=self.__search_engine).close()
-        ItemIndexRow.init(using=self.__search_engine)
-        Index(ItemIndexRow.Index.name, using=self.__search_engine).open()
+        if not self.__search_engine.indices.exists(ItemIndexRow.Index.name):
+            ItemIndexRow.init(using=self.__search_engine)
 
     def add(self, item: Item) -> NoReturn:
         item_index_row = ItemIndexRow(
