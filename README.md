@@ -12,6 +12,7 @@
  - [Amazon ECR](https://ap-northeast-1.console.aws.amazon.com/ecr/repositories/private/684886458640/greeedy?region=ap-northeast-1)
  - [API Gateway](https://ap-northeast-1.console.aws.amazon.com/apigateway/home?region=ap-northeast-1#/apis/nagpu8j4w7/resources)
  - [lambda-greeedy - Lambda](https://ap-northeast-1.console.aws.amazon.com/lambda/home?region=ap-northeast-1#/functions/lambda-greeedy?tab=code)
+ - [Amazon SQS](https://ap-northeast-1.console.aws.amazon.com/sqs/v2/home?region=ap-northeast-1#/queues/https%3A%2F%2Fsqs.ap-northeast-1.amazonaws.com%2F684886458640%2Fgreeedy-queue)
 
 </details>
 
@@ -125,6 +126,6 @@ $ pytest -v .
 
 ```bash
 # Amazon ECRにDockerイメージをプッシュ
-$ sh build_and_push.sh greeedy
+$ sh build_and_push.sh lambda-greeedy
 ```
 </details>
