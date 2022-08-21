@@ -55,15 +55,61 @@ $ docker-compose up --build
 $ docker-compose run --rm \
   -p 8000:8000 \
   app \
-  uvicorn start_api:api --host 0.0.0.0 --reload
+  uvicorn start_app:app --host 0.0.0.0 --reload
 
 $ mysql -h 127.0.0.1 -P 3306 -u user -p
 ```
 
  - [Greeedy API - Swagger UI](http://0.0.0.0:8000/docs)
+ - [ElasticMQの管理画面](http://0.0.0.0:9325/)
  - [Opensearch](http://0.0.0.0:9200)
  - [Opensearch - dashbord]()
  - [MySQL]()
+
+</details>
+
+<details><summary>メッセージを購読</summary>
+
+あらかじめ「コンテナの起動方法」に従ってコンテナを起動してください。起動したら、別ターミナルで下記を実行します。
+```bash
+# キューを作成
+$ aws sqs create-queue --queue-name greeedy-queue --endpoint-url http://localhost:9324
+
+# キューの一覧を表示
+$ aws sqs list-queues --endpoint-url http://localhost:9324
+
+# メッセージを作成
+$ aws sqs send-message \
+    --queue-url http://localhost:9324/000000000000/greeedy-queue \
+    --endpoint-url http://localhost:9324 \
+    --message-body '{
+  "url": "https://www.dholic.co.jp/Nshopping/GoodView_Item.asp?Gserial=1355755", 
+  "options": {"gender": "WOMEN", "brand_name": "DHOLIC"}
+}'
+
+# キューイングされたメッセージを表示
+$ aws sqs receive-message \
+    --queue-url http://localhost:9324/000000000000/to-scrape-queue \
+    --endpoint-url http://localhost:9324
+
+# メッセージを削除
+$ aws sqs delete-message \
+    --queue-url http://localhost:9324/000000000000/to-scrape-queue \
+    --receipt-handle {ReceiptHandleを指定} \
+    --endpoint-url http://localhost:9324
+
+# キューを削除
+$ aws sqs delete-queue \
+    --queue-url http://localhost:9324/000000000000/greeedy-queue \
+    --endpoint-url http://localhost:9324
+
+# 購読する
+$ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '
+{"Records": [{"body": "{\"producer_name\":\"epic-bot\", \"event_type\":\"epic-scraper.ItemCreated.1\", \"body\": {\"name\":\"ホゲホゲテスト\", \"brand_name\":\"DHOLIC\", \"price\": 100, \"description\":\"aaaaaaaaaaaaaaaaaaa\", \"gender\":\"WOMEN\", \"images\": [\"https://www.dzimg.com/Dahong/202204/1365750_20548339_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548340_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548341_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548342_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548343_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548344_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548345_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548346_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548347_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548348_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548349_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548350_k4.jpg\", \"https://www.dzimg.com/Dahong/202204/1365750_20548359_k4.jpg\"], \"url\": \"https://www.dholic.co.jp/product/goodview_item.asp?gserial=1365750\", \"meta\": {\"keywords\":\"キーワード\", \"description\": \"説明文\"}}}"}]}
+'
+```
+
+ - [ElasticMQの管理画面](http://0.0.0.0:9325/)
 
 </details>
 
@@ -79,6 +125,6 @@ $ pytest -v .
 
 ```bash
 # Amazon ECRにDockerイメージをプッシュ
-$ sh build_and_push.sh lambda-greeedy
+$ sh build_and_push.sh greeedy
 ```
 </details>

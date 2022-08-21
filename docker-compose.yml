@@ -5,23 +5,45 @@ services:
   app:
     build: ./app
     container_name: app
-    environment:
-      - LOG_LEVEL=DEBUG
-      - DI_PROFILE_ACTIVES=inmemory,elasticsearch
-      - MYSQL_USERNAME=user
-      - MYSQL_PASSWORD=pass
-      - MYSQL_HOSTNAME=mysql
-      - MYSQL_PORT=3306
-      - MYSQL_DATABASE_NAME=greeedy
-      - ELASTICSEARCH_HOSTNAME=elasticsearch
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=changeme
-      - USER_DICTIONARY_PATH=extra/user_dictionary.txt
-      - SYNONYMS_PATH=extra/synonyms.txt
+    environment: &app-environment
+      LOG_LEVEL: DEBUG
+      DI_PROFILE_ACTIVES: inmemory,elasticsearch
+      MYSQL_USERNAME: user
+      MYSQL_PASSWORD: pass
+      MYSQL_HOSTNAME: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE_NAME: greeedy
+      ELASTICSEARCH_HOSTNAME: elasticsearch
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: changeme
+      USER_DICTIONARY_PATH: extra/user_dictionary.txt
+      SYNONYMS_PATH: extra/synonyms.txt
     ports:
       - "8000:8000"
     volumes:
       - ./app:/app/
+
+  # AWS Lambda
+  lambda:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.aws.lambda
+    container_name: lambda
+    environment:
+      <<: *app-environment
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./app:/var/task
+      - $HOME/.aws:/root/.aws
+
+  # Amazon SQS
+  sqs:
+    container_name: sqs
+    image: softwaremill/elasticmq-native:1.3.6
+    ports:
+      - "9324:9324"
+      - "9325:9325"
 
   # Elasticsearch
   elasticsearch:

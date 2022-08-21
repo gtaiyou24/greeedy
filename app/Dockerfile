@@ -15,4 +15,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 EXPOSE 8000
 
 # uvicornのサーバーを立ち上げる
-#CMD ["uvicorn", "start_api:api", "--host", "0.0.0.0", "--reload"]
+#CMD ["uvicorn", "start_app:app", "--host", "0.0.0.0", "--reload"]

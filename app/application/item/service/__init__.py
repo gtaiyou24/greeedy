@@ -1,2 +1,3 @@
 from .item_application_service import ItemApplicationService
+from .process_item_application_service import ProcessItemApplicationService
 from .search_item_application_service import SearchItemApplicationService

@@ -9,6 +9,8 @@ mangum==0.15.0
 injector==0.19.0
 # ログ出力
 slf4py==0.0.2
+# HTTPライブラリ
+requests==2.27.1
 # ORMライブラリ
 SQLAlchemy==1.4.31
 mysqlclient==2.1.1

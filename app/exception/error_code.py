@@ -32,6 +32,9 @@ class ErrorCode(Enum):
     DB_CAN_NOT_CONNECT_TO_DATABASE = ('データベースへの接続に失敗しました。', ErrorLevel.CRITICAL, HTTPStatus.INTERNAL_SERVER_ERROR)
     DB_CLIENT_ERROR = ('クライアントエラーが発生しました。', ErrorLevel.ERROR, HTTPStatus.INTERNAL_SERVER_ERROR)
     DB_TIME_OUT = ('タイムアウトが発生しました。', ErrorLevel.WARN, HTTPStatus.INTERNAL_SERVER_ERROR)
+    GREEEDY_ML_CONNECTION_ERROR = ('ネットワークの問題が発生しました。', ErrorLevel.ERROR, HTTPStatus.INTERNAL_SERVER_ERROR)
+    GREEEDY_ML_TIME_OUT = ('リクエストがタイムアウトしました。', ErrorLevel.ERROR, HTTPStatus.INTERNAL_SERVER_ERROR)
+    GREEEDY_ML_REQUEST_ERROR = ('APIリクエスト時に想定外のエラーが発生しました。', ErrorLevel.ERROR, HTTPStatus.INTERNAL_SERVER_ERROR)
 
     def __init__(self, message: str, error_level: ErrorLevel, http_status: HTTPStatus):
         self.message = message

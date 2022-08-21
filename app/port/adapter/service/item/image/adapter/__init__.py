@@ -1,0 +1,1 @@
+from .item_image_adapter import ItemImageAdapter
