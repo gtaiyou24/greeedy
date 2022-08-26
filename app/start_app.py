@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from mangum import Mangum
 from mangum.types import LambdaEvent, LambdaContext
 
-from config import exception_handlers
+from config import exception_handlers, event_handlers
 from exception import SystemException
 from port.adapter.messaging.sqs import SQSMessageConsumer
 from port.adapter.resource.category import category_resource
@@ -13,6 +13,9 @@ from port.adapter.resource.item import item_resource
 app = FastAPI(title="Greeedy")
 
 app.add_exception_handler(SystemException, exception_handlers.system_exception_handler)
+
+app.add_event_handler('startup', event_handlers.startup_handler)
+app.add_event_handler('shutdown', event_handlers.shutdown_handler)
 
 app.include_router(category_resource.router)
 app.include_router(health_resource.router)
