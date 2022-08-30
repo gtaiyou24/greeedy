@@ -15,7 +15,7 @@ class ItemCreatedListener(ExchangeListener):
     def __init__(self, process_item_application: ProcessItemApplicationService):
         super(ItemCreatedListener, self).__init__(
             producer_name=ExchangeListener.ProducerName.EPIC_BOT_PRODUCER_NAME,
-            event_types={'epic-scraper.ItemCreated.1'}
+            event_types={'ItemCreated.1'}
         )
         self.__process_item_application = process_item_application
 
@@ -25,7 +25,7 @@ class ItemCreatedListener(ExchangeListener):
 
         self.__process_item_application.process(
             ProcessItemCommand(
-                name=reader.event_str_value('name'),
+                name=reader.event_str_value('item_name'),
                 brand_name=reader.event_str_value('brand_name'),
                 price=reader.event_float_value('price'),
                 description=reader.event_str_value('description'),

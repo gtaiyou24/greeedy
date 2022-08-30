@@ -50,12 +50,12 @@ class SQSMessageConsumer:
     def dispatch_message(self, message: str) -> NoReturn:
         producer_name = self.__producer_name_of(message)
         event_type = self.__event_type_of(message)
-        body = self.__body_of(message)
+        event = self.__event_of(message)
 
         for listener in self.__exchange_listeners:
             if listener.producer_name == producer_name and listener.listens_to(event_type):
                 try:
-                    listener.filtered_dispatch(event_type, body)
+                    listener.filtered_dispatch(event_type, event)
                 except SystemException as e:
                     e.logging()
 
@@ -65,5 +65,5 @@ class SQSMessageConsumer:
     def __event_type_of(self, message: str) -> str:
         return eval(message)['event_type']
 
-    def __body_of(self, message: str) -> str:
-        return json.dumps(eval(message)['body'])
+    def __event_of(self, message: str) -> str:
+        return json.dumps(eval(message)['event'])

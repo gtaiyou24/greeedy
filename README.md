@@ -72,10 +72,13 @@ $ aws sqs send-message \
     --queue-url http://localhost:4566/000000000000/greeedy-queue \
     --endpoint-url http://localhost:4566 \
     --message-body '{
+  "notification_id": 1,
   "producer_name": "epic-bot",
-  "event_type": "epic-scraper.ItemCreated.1",
-  "body": {
-    "name": "ホゲホゲテスト",
+  "occurred_on": "2022-8-31 10:00:00",
+  "version": 1,
+  "event_type": "ItemCreated.1",
+  "event": {
+    "item_name": "ホゲホゲテスト",
     "brand_name": "DHOLIC",
     "price": 100,
     "description": "aaaaaaaaaaaaaaaaaaa",
