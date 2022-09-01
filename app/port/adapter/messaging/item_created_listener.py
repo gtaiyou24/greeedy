@@ -25,7 +25,7 @@ class ItemCreatedListener(ExchangeListener):
 
         self.__process_item_application.process(
             ProcessItemCommand(
-                name=reader.event_str_value('item_name'),
+                name=reader.event_str_value('name'),
                 brand_name=reader.event_str_value('brand_name'),
                 price=reader.event_float_value('price'),
                 description=reader.event_str_value('description'),

@@ -58,6 +58,8 @@ class SQSMessageConsumer:
                     listener.filtered_dispatch(event_type, event)
                 except SystemException as e:
                     e.logging()
+                except Exception as e:
+                    self.log.warn(e)
 
     def __producer_name_of(self, message: str) -> str:
         return eval(message)['producer_name']

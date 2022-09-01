@@ -73,37 +73,52 @@ $ aws sqs send-message \
     --endpoint-url http://localhost:4566 \
     --message-body '{
   "notification_id": 1,
-  "producer_name": "epic-bot",
-  "occurred_on": "2022-8-31 10:00:00",
-  "version": 1,
-  "event_type": "ItemCreated.1",
   "event": {
-    "item_name": "ホゲホゲテスト",
+    "name": "レースパンチングブラウス・全2色・b71916",
     "brand_name": "DHOLIC",
-    "price": 100,
-    "description": "aaaaaaaaaaaaaaaaaaa",
+    "price": 2570,
+    "description": "[DESIGN]\n\n総レースがフェミニンなブラウスです。\nカラーネックが端正で中央のボタンが開閉できます。\n肩と裾はスカラップレースでムードUP↑\n\nレースは肩をやや覆うデザインです。\nフロントはバイアス状に、バックは縦のパンチングで\nコントラストをつけました。\nコーデの主役になるのでデニムに着流すだけでも◎\n\n\n※素材の特性上、多少透け感がございます。\nスキントーンの下着とお召しいただくと安心です。\n\n\n※製造過程上、パターンにずれが生じる\n場合がありますが不備ではございません。",
     "gender": "WOMEN",
     "images": [
-      "https://www.dzimg.com/Dahong/202204/1365750_20548339_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548340_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548341_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548342_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548343_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548344_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548345_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548346_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548347_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548348_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548349_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548350_k4.jpg",
-      "https://www.dzimg.com/Dahong/202204/1365750_20548359_k4.jpg"
+      "https://www.dzimg.com/Dahong/202203/1353897_20465618_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465619_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465620_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465621_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465622_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465623_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465624_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465625_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465626_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465627_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465628_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465629_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465630_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465631_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465632_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465633_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465634_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465635_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465636_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20465637_k1.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444554_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444555_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444556_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444557_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444558_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444559_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444560_k2.jpg",
+      "https://www.dzimg.com/Dahong/202203/1353897_20444561_k2.jpg"
     ],
-    "url": "https://www.dholic.co.jp/product/goodview_item.asp?gserial=1365750",
+    "url": "https://m.dholic.co.jp/product/goodview_item.asp?gserial=1353897",
     "meta": {
-      "keywords":"キーワード",
-      "description": "説明文"
+      "keywords": "レースパンチングブラウス・全2色・b71916,ブラウス,ノースリーブブラウス, 通販,ファッション,レディース,DHOLIC,ディーホリック,コスメ,コスメ通販,韓国コスメ,韓国コスメ通販,韓国ファッション,韓国通販,韓国ファッション通販, 韓国レディース通販",
+      "description": "レディースファッションショッピングモールDHOLICの[レースパンチングブラウス・全2色・b71916]ページです。毎日たくさんの新商品が登録されており、即日配送商品とセール商品と割引クーポンGETのチャンスもお見逃しなく。"
     }
-  }
+  },
+  "occurred_on": "2022-09-01 08:41:49",
+  "event_type": "ItemCreated.1",
+  "version": 1,
+  "producer_name": "epic-bot"
 }'
 
 # キューイングされたメッセージを表示
