@@ -23,7 +23,7 @@ class SearchItemApplicationService:
                price_from: Optional[int], price_to: Optional[int],
                sort: str, start: int, size: int) -> SearchHitItemsDpo:
         gender = Gender[a_gender]
-        colors = set([Color[color] for color in colors])
+        colors = set([Color.value_of(color) for color in colors])
 
         category = None
         if a_category_id:

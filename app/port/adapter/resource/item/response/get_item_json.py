@@ -21,7 +21,9 @@ class GetItemJson(BaseModel):
     id: str = Field(description="アイテムID")
     name: str = Field(description="アイテム名")
     brand_name: str = Field(description="ブランド名")
-    price: List[GetItemJson.ItemPrice] = Field(description="価格")
+    # price: List[GetItemJson.ItemPrice] = Field(description="価格")
+    price: int = Field(description="価格")
+    description: str = Field(description="アイテムの説明文")
     gender: str = Field(description="性別")
     images: List[GetItemJson.ItemImage] = Field(description="画像URL一覧")
     url: str = Field(description="アイテムのページURL")
@@ -29,9 +31,8 @@ class GetItemJson(BaseModel):
     @staticmethod
     def make_by(dpo: GetItemDpo) -> GetItemJson:
         return GetItemJson(id=dpo.item.id.value, name=dpo.item.name.text, brand_name=dpo.item.brand_name.text,
-                           price=[GetItemJson.ItemPrice(amount=dpo.item.price.amount,
-                                                        currency=dpo.item.price.currency.name,
-                                                        type=dpo.item.price.type.name)],
+                           price=dpo.item.price.amount,
+                           description=dpo.item.description.text,
                            gender=dpo.item.gender.name,
                            images=[
                                GetItemJson.ItemImage(type=image.type.name, color=image.color.name, url=image.url.address) \

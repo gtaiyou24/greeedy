@@ -2,6 +2,7 @@ import abc
 from typing import Optional, Set, NoReturn
 
 from domain.model.category import Category
+from domain.model.color import Color
 from domain.model.gender import Gender
 from domain.model.item import SearchHitItems
 from domain.model.item.id import ItemId
@@ -23,7 +24,7 @@ class ItemIndex(abc.ABC):
 
     @abc.abstractmethod
     def search(self, gender: Gender, text: Optional[str],
-               category: Optional[Category], colors: Set[str],
+               category: Optional[Category], colors: Set[Color],
                designs: Set[str], details: Set[str],
                price_from: Optional[int], price_to: Optional[int],
                sort: str = "relevance", start: int = 1, size: int = 20) -> SearchHitItems:
