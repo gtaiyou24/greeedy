@@ -1,10 +1,10 @@
 from typing import Optional, Set
 
+from di import DIContainer
 from fastapi import APIRouter
 
 from application.item.command import SaveItemCommand
 from application.item.service import ItemApplicationService, SearchItemApplicationService
-from di import DIManager
 from port.adapter.resource.item.request import RequestSaveItem
 from port.adapter.resource.item.response import SearchHitItemsJson, GetItemJson, GetItemListJson
 
@@ -12,9 +12,6 @@ router = APIRouter(
     prefix="/items",
     tags=["商品系"]
 )
-
-item_application_service = DIManager.get(ItemApplicationService)
-search_item_application_service = DIManager.get(SearchItemApplicationService)
 
 
 @router.get("/search", response_model=SearchHitItemsJson, name="アイテム検索機能",
@@ -27,6 +24,8 @@ def search(gender: str, keyword: Optional[str] = None,
     colors: Set[str] = set(colors.split(",")) if colors else set()
     designs: Set[str] = set(designs.split(",")) if designs else set()  # 柄・デザイン
     details: Set[str] = set(details.split(",")) if details else set()  # こだわり
+
+    search_item_application_service = DIContainer.instance().resolve(SearchItemApplicationService)
 
     dpo = search_item_application_service.search(gender, keyword, category_id, colors, designs, details,
                                                  price_from, price_to, sort, start, size)
@@ -49,21 +48,26 @@ def save(request: RequestSaveItem):
             description=request.meta.description
         )
     )
+
+    item_application_service = DIContainer.instance().resolve(ItemApplicationService)
     item_application_service.save(command)
 
 
 @router.get("/{item_id}", response_model=GetItemJson, name="アイテム取得機能")
 def get(item_id: str) -> GetItemJson:
+    item_application_service = DIContainer.instance().resolve(ItemApplicationService)
     dpo = item_application_service.get(item_id)
     return GetItemJson.make_by(dpo)
 
 
 @router.get("", response_model=GetItemListJson, name="アイテム一覧取得機能")
 def list(ids: str) -> GetItemListJson:
+    item_application_service = DIContainer.instance().resolve(ItemApplicationService)
     dpo = item_application_service.list(ids.split(","))
     return GetItemListJson.make_by(dpo)
 
 
 @router.delete("/{item_id}", name="アイテム削除機能")
 def delete(item_id: str):
+    item_application_service = DIContainer.instance().resolve(ItemApplicationService)
     item_application_service.delete(item_id)

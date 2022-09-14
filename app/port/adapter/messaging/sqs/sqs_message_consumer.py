@@ -3,10 +3,10 @@ import threading
 import time
 from typing import NoReturn
 
+from di import DIContainer
 from injector import inject, singleton
 from slf4py import set_logger
 
-from di import DIManager
 from exception import SystemException
 from port.adapter.messaging import ItemCreatedListener
 from port.adapter.messaging.sqs import SQSClient
@@ -18,7 +18,7 @@ class SQSMessageConsumer:
     @inject
     def __init__(self, sqs_client: SQSClient):
         self.__exchange_listeners = [
-            DIManager.get(ItemCreatedListener)
+            DIContainer.instance().resolve(ItemCreatedListener)
         ]
         self.__sqs_client = sqs_client
         self.__is_running = True

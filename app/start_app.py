@@ -27,7 +27,6 @@ def handler(event: LambdaEvent, context: LambdaContext):
     if 'Records' in event:
         message_consumer = SQSMessageConsumer()
         for record in event['Records']:
-            print(record)
             message_consumer.dispatch_message(record['body'])
         return
 

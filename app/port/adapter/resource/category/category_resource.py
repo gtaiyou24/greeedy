@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 
+from di import DIContainer
+
 from application.category.service import CategoryApplicationService
-from di import DIManager
 from port.adapter.resource.category.response import GetCategoryTreeListJson
 
 router = APIRouter(
@@ -9,10 +10,9 @@ router = APIRouter(
     tags=["カテゴリ系"]
 )
 
-category_application_service = DIManager.get(CategoryApplicationService)
-
 
 @router.get("/{gender}", response_model=GetCategoryTreeListJson, name="カテゴリツリー取得機能")
 def get(gender: str) -> GetCategoryTreeListJson:
+    category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
     dpo = category_application_service.get_category_tree_list(gender)
     return GetCategoryTreeListJson.make_by(dpo)
