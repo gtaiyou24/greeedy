@@ -1,8 +1,10 @@
 from typing import Optional, Set, NoReturn
 
-from elasticsearch_dsl import Search, Index
+from elasticsearch import NotFoundError
+from elasticsearch_dsl import Search
 from elasticsearch_dsl.response import Response
 from injector import inject
+from slf4py import set_logger
 
 from config import ElasticsearchConfig
 from domain.model.category import Category
@@ -16,6 +18,7 @@ from domain.model.url import URL
 from port.adapter.persistence.index.elasticsearch.item import ItemIndexRow, ItemQueryBuilder
 
 
+@set_logger
 class ElasticsearchItemIndex(ItemIndex):
     @inject
     def __init__(self, config: ElasticsearchConfig):
@@ -42,8 +45,10 @@ class ElasticsearchItemIndex(ItemIndex):
         item_index_row.save(using=self.__search_engine)
 
     def get(self, item_id: ItemId) -> Optional[Item]:
-        item_document = ItemIndexRow.get(item_id.value, using=self.__search_engine)
-        if item_document is None:
+        try:
+            item_document = ItemIndexRow.get(item_id.value, using=self.__search_engine)
+        except NotFoundError as e:
+            self.log.warn(e)
             return None
 
         return Item(
