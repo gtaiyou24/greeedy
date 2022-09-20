@@ -1,14 +1,14 @@
 from typing import Optional, NoReturn
 
 from injector import inject
+from sqlalchemy.orm import Session
 
-from config import MySQLConfig
-from config.db import session
 from port.adapter.persistence.repository.mysql.category.driver import CategoriesTableRow
 
 
 class CategoriesCrud:
-    def __init__(self):
+    @inject
+    def __init__(self, session: Session):
         self.__session = session
 
     def find_by_id(self, id: str) -> Optional[CategoriesTableRow]:

@@ -1,14 +1,14 @@
 from typing import NoReturn, List
 
 from injector import inject
+from sqlalchemy.orm import Session
 
-from config import MySQLConfig
-from config.db import session
 from port.adapter.persistence.repository.mysql.category.driver import CategoryRelationsTableRow
 
 
 class CategoryRelationsCrud:
-    def __init__(self):
+    @inject
+    def __init__(self, session: Session):
         self.__session = session
 
     def upsert(self, category_relations_table_row_list: List[CategoryRelationsTableRow]) -> NoReturn:

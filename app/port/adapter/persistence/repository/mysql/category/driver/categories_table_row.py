@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import NoReturn
+
 from sqlalchemy import Column, DateTime, func, TEXT, VARCHAR
 
 from domain.model.category import Category
@@ -25,3 +27,9 @@ class CategoriesTableRow(Base):
             gender=category.gender.name,
             image_url=category.image_url.address
         )
+
+    def update(self, categories_table_row: CategoriesTableRow) -> NoReturn:
+        self.id = categories_table_row.id
+        self.name = categories_table_row.name
+        self.gender = categories_table_row.gender
+        self.image_url = categories_table_row.image_url

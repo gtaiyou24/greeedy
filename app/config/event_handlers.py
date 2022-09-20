@@ -31,6 +31,8 @@ async def startup_handler() -> NoReturn:
     DIContainer.instance().register(DI.of(CategoryRepository,
                                           {"inmemory": InMemCategoryRepository, "mysql": MySQLCategoryRepository},
                                           MySQLCategoryRepository))
+    config = DIContainer.instance().resolve(MySQLConfig)
+    DIContainer.instance().register(DI.of(Session, {}, Session(autocommit=False, autoflush=False, bind=config.engine())))
     # run consumer thread
     message_consumer = DIContainer.instance().resolve(SQSMessageConsumer)
     message_consumer.start_receiving()

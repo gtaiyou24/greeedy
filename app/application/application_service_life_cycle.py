@@ -1,16 +1,17 @@
 from typing import Optional
 
-from injector import singleton
+from injector import singleton, inject
 from slf4py import set_logger
+from sqlalchemy.orm import Session
 
-from config.db import session
 from domain.model import DomainEventPublisher, DomainEventSubscriber, DomainEvent
 
 
 @set_logger
 @singleton
 class ApplicationServiceLifeCycle:
-    def __init__(self):
+    @inject
+    def __init__(self, session: Session):
         self.__session = session
 
     def begin(self, is_listening: bool = True):
