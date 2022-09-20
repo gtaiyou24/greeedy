@@ -3,17 +3,19 @@ from typing import NoReturn, Optional
 from injector import inject
 
 from config import MySQLConfig
-from port.adapter.persistence.repository.mysql.category.driver import CategoryQueriesTableRow, BaseForCategoryQueries
+from config.db import session
+from port.adapter.persistence.repository.mysql.category.driver import CategoryQueriesTableRow
 
 
 class CategoryQueriesCrud:
-    @inject
-    def __init__(self, config: MySQLConfig):
-        self.__engine = config.engine()
-        self.__session = config.session()
-        BaseForCategoryQueries.metadata.create_all(bind=self.__engine)
+    def __init__(self):
+        self.__session = session
 
     def upsert(self, category_queries_table_row: CategoryQueriesTableRow) -> NoReturn:
+        if category_queries_table_row.id is None:
+            self.__session.add(category_queries_table_row)
+            return
+
         optional = self.__session.query(CategoryQueriesTableRow).get(category_queries_table_row.id)
         if optional is None:
             self.__session.add(category_queries_table_row)

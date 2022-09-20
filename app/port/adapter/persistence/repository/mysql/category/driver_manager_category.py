@@ -2,7 +2,10 @@ from typing import Optional, NoReturn
 
 from injector import inject
 
-from domain.model.category import CategoryId, Category
+from domain.model.category import CategoryId, Category, CategoryName
+from domain.model.gender import Gender
+from domain.model.query import QuerySet
+from domain.model.url import URL
 from port.adapter.persistence.repository.mysql.category.driver import CategoriesCrud, CategoriesTableRow, \
     CategoryQueriesTableRow, CategoryRelationsTableRow, CategoryQueriesCrud, CategoryRelationsCrud
 
@@ -24,9 +27,13 @@ class DriverManagerCategory:
 
         if categories_table_row is None or category_queries_table_row is None:
             return None
-        return categories_table_row.to(
-            category_queries_table_row,
-            category_relations_table_row_list
+        return Category(
+            CategoryId(categories_table_row.id),
+            Gender[categories_table_row.gender],
+            CategoryName(categories_table_row.name),
+            URL(categories_table_row.image_url),
+            [CategoryId(t.child_category_id) for t in category_relations_table_row_list],
+            category_queries_table_row.to_query_set()
         )
 
     def upsert(self, category: Category) -> NoReturn:
