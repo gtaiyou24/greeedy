@@ -5,7 +5,7 @@ from di import DIContainer
 from application.category.command import SaveCategoryCommand
 from application.category.service import CategoryApplicationService
 from port.adapter.resource.category.request import RequestSaveCategory
-from port.adapter.resource.category.response import GetCategoryTreeListJson
+from port.adapter.resource.category.response import GetCategoryTreeListJson, GetCategoryJson
 
 router = APIRouter(
     prefix="/categories",
@@ -13,8 +13,8 @@ router = APIRouter(
 )
 
 
-@router.get("/{gender}", response_model=GetCategoryTreeListJson, name="カテゴリツリー取得機能")
-def get(gender: str) -> GetCategoryTreeListJson:
+@router.get("/tree/{gender}", response_model=GetCategoryTreeListJson, name="カテゴリツリー取得機能")
+def tree(gender: str) -> GetCategoryTreeListJson:
     category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
     dpo = category_application_service.get_category_tree_list(gender)
     return GetCategoryTreeListJson.make_by(dpo)
@@ -34,3 +34,10 @@ def save(request: RequestSaveCategory):
             for operator, queries in request.operator_and_queries.items()}
     )
     category_application_service.save(command)
+
+
+@router.get("/{category_id}", response_model=GetCategoryJson, name="カテゴリ取得機能")
+def get(category_id: str) -> GetCategoryJson:
+    category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
+    dpo = category_application_service.get(category_id)
+    return GetCategoryJson.of(dpo)
