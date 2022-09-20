@@ -1,19 +1,14 @@
 from __future__ import annotations
 
-from typing import List
+from typing import NoReturn
 
 from sqlalchemy import Column, DateTime, func, TEXT, VARCHAR
-from sqlalchemy.orm import declarative_base
 
-from domain.model.category import Category, CategoryId, CategoryName
-from domain.model.gender import Gender
-from domain.model.url import URL
-from port.adapter.persistence.repository.mysql.category.driver import CategoryRelationsTableRow, CategoryQueriesTableRow
-
-BaseForCategories = declarative_base()
+from domain.model.category import Category
+from port.adapter.persistence.repository.mysql import Base
 
 
-class CategoriesTableRow(BaseForCategories):
+class CategoriesTableRow(Base):
     __tablename__ = "categories"
     __table_args__ = ({"mysql_charset": "utf8mb4", "mysql_engine": "InnoDB"})
 
@@ -33,11 +28,8 @@ class CategoriesTableRow(BaseForCategories):
             image_url=category.image_url.address
         )
 
-    def to(self,
-           category_queries_table_row: CategoryQueriesTableRow,
-           category_relations_table_row_list: List[CategoryRelationsTableRow]) -> Category:
-        return Category(
-            CategoryId(self.id), Gender[self.gender], CategoryName(self.name), URL(self.image_url),
-            [CategoryId(t.child_category_id) for t in category_relations_table_row_list],
-            # QuerySet(category_queries_table_row.queries)
-        )
+    def update(self, categories_table_row: CategoriesTableRow) -> NoReturn:
+        self.id = categories_table_row.id
+        self.name = categories_table_row.name
+        self.gender = categories_table_row.gender
+        self.image_url = categories_table_row.image_url
