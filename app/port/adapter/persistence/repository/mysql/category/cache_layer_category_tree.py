@@ -1,10 +1,7 @@
-from typing import List
-
 from cachetools import cached, TTLCache
 from injector import inject
 
-from domain.model.category import CategoryTree
-from domain.model.gender import Gender
+from domain.model.category import CategoryTree, CategoryId
 from port.adapter.persistence.repository.mysql.category import DriverManagerCategoryTree
 
 
@@ -18,5 +15,5 @@ class CacheLayerCategoryTree:
         self.__driver_manager_category_tree = driver_manager_category_tree
 
     @cached(cache=TTLCache(maxsize=128, ttl=__TTL))
-    def category_tree_list_or_origin(self, gender: Gender) -> List[CategoryTree]:
-        return self.__driver_manager_category_tree.find_list_by_gender(gender)
+    def category_tree_or_origin(self, category_id: CategoryId) -> CategoryTree:
+        return self.__driver_manager_category_tree.find_by_category_id(category_id)

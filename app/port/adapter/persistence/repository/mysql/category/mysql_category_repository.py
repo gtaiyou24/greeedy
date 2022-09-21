@@ -1,9 +1,8 @@
-from typing import List, Optional, NoReturn
+from typing import Optional, NoReturn
 
 from injector import inject
 
 from domain.model.category import CategoryRepository, CategoryTree, CategoryId, Category
-from domain.model.gender import Gender
 from port.adapter.persistence.repository.mysql.category import CacheLayerCategory, DriverManagerCategory, \
     CacheLayerCategoryTree
 
@@ -18,8 +17,11 @@ class MySQLCategoryRepository(CategoryRepository):
         self.__cache_layer_category_tree = cache_layer_category_tree
         self.__driver_manager_category = driver_manager_category
 
-    def category_tree(self, gender: Gender) -> List[CategoryTree]:
-        return self.__cache_layer_category_tree.category_tree_list_or_origin(gender)
+    def category_tree_of(self, category_id: CategoryId) -> CategoryTree:
+        return self.__cache_layer_category_tree.category_tree_or_origin(category_id)
+
+    def categories_of(self, category_ids: set[CategoryId]) -> set[Category]:
+        return set({self.__cache_layer_category.category_or_origin(category_id) for category_id in category_ids})
 
     def category_of(self, category_id: CategoryId) -> Optional[Category]:
         return self.__cache_layer_category.category_or_origin(category_id)

@@ -1,35 +1,37 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Optional
 
-from domain.model.category import Category, CategoryId
+from domain.model.category import CategoryId
 
 
 @dataclass(init=False, unsafe_hash=True, frozen=True)
 class CategoryTree:
-    current: Category
-    children: List[CategoryTree]
+    current: CategoryId
+    children: list[CategoryTree]
 
-    def __init__(self, current: Category, children: List[CategoryTree]):
-        assert isinstance(current, Category), "currentにはCategoryを指定してください。(type={})".format(type(current))
-        assert isinstance(children, List), "childrenにはList[CategoryTree]を指定してください。(type={})".format(type(children))
+    def __init__(self, current: CategoryId, children: list[CategoryTree]):
+        assert isinstance(current, CategoryId), "currentにはCategoryIdを指定してください。(type={})".format(type(current))
+        assert isinstance(children, list), "childrenにはlist[CategoryTree]を指定してください。(type={})".format(type(children))
         super().__setattr__("current", current)
         super().__setattr__("children", children)
 
-    def is_in(self, category_id: CategoryId) -> bool:
-        if self.current.id == category_id:
+    def has(self, category_id: CategoryId) -> bool:
+        if self.current == category_id:
             return True
         for child in self.children:
-            if child.is_in(category_id):
+            if child.has(category_id):
                 return True
         return False
 
-    def category_of(self, category_id: CategoryId) -> Optional[Category]:
-        if self.current.id == category_id:
-            return self.current
-        for child in self.children:
-            optional_category = child.category_of(category_id)
-            if optional_category is not None:
-                return optional_category
-        return None
+    def all_category_ids(self) -> set[CategoryId]:
+        category_ids = {self.current}
+        category_trees = list(self.children)
+        while True:
+            if not category_trees:
+                break
+            a_category_tree = category_trees.pop()
+            category_ids.add(a_category_tree.current)
+            for c in a_category_tree.children:
+                category_trees.append(c)
+        return set(category_ids)

@@ -36,5 +36,8 @@ class Category:
             return False
         return self.id == other.id
 
+    def __hash__(self):
+        return hash(self.id)
+
     def is_leaf(self) -> bool:
         return self.sub_category_ids == []

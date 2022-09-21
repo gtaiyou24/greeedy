@@ -16,7 +16,7 @@ router = APIRouter(
 @router.get("/tree/{gender}", response_model=GetCategoryTreeListJson, name="カテゴリツリー取得機能")
 def tree(gender: str) -> GetCategoryTreeListJson:
     category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
-    dpo = category_application_service.get_category_tree_list(gender)
+    dpo = category_application_service.get_category_tree(gender)
     return GetCategoryTreeListJson.make_by(dpo)
 
 
@@ -39,5 +39,5 @@ def save(request: RequestSaveCategory):
 @router.get("/{category_id}", response_model=GetCategoryJson, name="カテゴリ取得機能")
 def get(category_id: str) -> GetCategoryJson:
     category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
-    dpo = category_application_service.get(category_id)
+    dpo = category_application_service.get_category(category_id)
     return GetCategoryJson.of(dpo)

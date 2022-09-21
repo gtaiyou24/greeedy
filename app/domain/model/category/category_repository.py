@@ -1,13 +1,16 @@
 import abc
-from typing import List, Optional, NoReturn
+from typing import Optional, NoReturn
 
 from domain.model.category import CategoryTree, CategoryId, Category
-from domain.model.gender import Gender
 
 
 class CategoryRepository(abc.ABC):
     @abc.abstractmethod
-    def category_tree(self, gender: Gender) -> List[CategoryTree]:
+    def category_tree_of(self, category_id: CategoryId) -> CategoryTree:
+        pass
+
+    @abc.abstractmethod
+    def categories_of(self, category_ids: set[CategoryId]) -> set[Category]:
         pass
 
     @abc.abstractmethod

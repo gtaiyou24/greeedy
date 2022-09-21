@@ -24,4 +24,5 @@ class CategoryRelationsCrud:
     def find_by_parent_category_id(self, parent_category_id: str) -> List[CategoryRelationsTableRow]:
         return self.__session.query(CategoryRelationsTableRow)\
             .filter(CategoryRelationsTableRow.parent_category_id == parent_category_id)\
+            .order_by(CategoryRelationsTableRow.sort_order)\
             .all()

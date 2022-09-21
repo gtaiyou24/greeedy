@@ -13,9 +13,9 @@ class CategoriesTableRow(Base):
     __table_args__ = ({"mysql_charset": "utf8mb4", "mysql_engine": "InnoDB"})
 
     id = Column(VARCHAR(255), primary_key=True, nullable=False)
-    name = Column(VARCHAR(255), nullable=False)
-    gender = Column(VARCHAR(10), nullable=False)
-    image_url = Column(TEXT, nullable=False)
+    name = Column(VARCHAR(255), nullable=False, comment='カテゴリ名')
+    gender = Column(VARCHAR(10), nullable=False, comment='性別')
+    image_url = Column(TEXT, nullable=False, comment='カテゴリ画像URL')
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now())
 

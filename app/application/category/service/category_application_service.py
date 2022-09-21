@@ -4,7 +4,7 @@ from injector import singleton, inject
 
 from application import ApplicationServiceLifeCycle
 from application.category.command import SaveCategoryCommand
-from application.category.dpo import GetCategoryTreeListDpo, GetCategoryDpo
+from application.category.dpo import GetCategoryTreeDpo, GetCategoryDpo
 from domain.model.category import CategoryRepository, CategoryId, Category, CategoryName
 from domain.model.gender import Gender
 from domain.model.query import QuerySet, Operator, Query
@@ -21,12 +21,12 @@ class CategoryApplicationService:
         self.__application_service_life_cycle = application_service_life_cycle
         self.__category_repository = category_repository
 
-    def get_category_tree_list(self, a_gender: str) -> GetCategoryTreeListDpo:
-        gender = Gender[a_gender]
-        category_tree_list = self.__category_repository.category_tree(gender)
-        return GetCategoryTreeListDpo(list=category_tree_list)
+    def get_category_tree(self, a_gender: str) -> GetCategoryTreeDpo:
+        category_tree = self.__category_repository.category_tree_of(CategoryId(a_gender))
+        categories = self.__category_repository.categories_of(category_tree.all_category_ids())
+        return GetCategoryTreeDpo(category_tree=category_tree, categories=categories)
 
-    def get(self, a_category_id: str) -> GetCategoryDpo:
+    def get_category(self, a_category_id: str) -> GetCategoryDpo:
         category_id = CategoryId(a_category_id)
         category = self.__category_repository.category_of(category_id)
 

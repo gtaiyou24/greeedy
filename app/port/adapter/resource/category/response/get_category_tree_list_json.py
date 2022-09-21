@@ -4,7 +4,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from application.category.dpo import GetCategoryTreeListDpo
+from application.category.dpo import GetCategoryTreeDpo
 
 
 class GetCategoryTreeListJson(BaseModel):
@@ -15,7 +15,7 @@ class GetCategoryTreeListJson(BaseModel):
         sub_categories: List[CategoryTree] = Field(default=[], title="サブカテゴリ一覧")
 
         @staticmethod
-        def make_by(category_tree: GetCategoryTreeListDpo.CategoryTree) -> GetCategoryTreeListJson.CategoryTree:
+        def make_by(category_tree: GetCategoryTreeDpo.CategoryTreeDpo) -> GetCategoryTreeListJson.CategoryTree:
             return GetCategoryTreeListJson.CategoryTree(
                 id=category_tree.current_category.id.value,
                 name=category_tree.current_category.name.text,
@@ -26,6 +26,6 @@ class GetCategoryTreeListJson(BaseModel):
     categories: List[GetCategoryTreeListJson.CategoryTree] = Field(default=[], title="カテゴリツリー一覧")
 
     @staticmethod
-    def make_by(dpo: GetCategoryTreeListDpo) -> GetCategoryTreeListJson:
+    def make_by(dpo: GetCategoryTreeDpo) -> GetCategoryTreeListJson:
         return GetCategoryTreeListJson(
             categories=[GetCategoryTreeListJson.CategoryTree.make_by(category_tree) for category_tree in dpo.list])

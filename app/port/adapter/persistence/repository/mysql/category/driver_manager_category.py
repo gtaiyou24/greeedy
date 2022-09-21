@@ -20,6 +20,14 @@ class DriverManagerCategory:
         self.__category_queries_crud = category_queries_crud
         self.__category_relations_crud = category_relations_crud
 
+    def find_by_ids(self, category_ids: set[CategoryId]) -> set[Category]:
+        # TODO : 全て一括で取得するように変更する
+        #        SELECT ... FROM ... WHERE id IN ('1', '2', '3', ...)
+        categories = set()
+        for category_id in category_ids:
+            categories.add(self.find_by_id(category_id))
+        return categories
+
     def find_by_id(self, category_id: CategoryId) -> Optional[Category]:
         categories_table_row = self.__categories_crud.find_by_id(category_id.value)
         category_queries_table_row = self.__category_queries_crud.find_by_category_id(category_id.value)

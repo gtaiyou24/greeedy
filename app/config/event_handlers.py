@@ -1,7 +1,7 @@
 from typing import NoReturn
 
 from di import DIContainer, DI
-from sqlalchemy.orm import scoped_session, sessionmaker, Session
+from sqlalchemy.orm import Session
 
 from config import MySQLConfig
 from domain.model.category import CategoryRepository
@@ -10,7 +10,7 @@ from domain.model.item.id import ItemIdFactoryImpl, ItemIdFactory
 from domain.model.item.image import ItemImageService
 from port.adapter.messaging.sqs import SQSMessageConsumer
 from port.adapter.persistence.index.elasticsearch.item import ElasticsearchItemIndex
-from port.adapter.persistence.repository.inmemory import InMemoryItemRepository, InMemCategoryRepository
+from port.adapter.persistence.repository.inmemory import InMemoryItemRepository
 from port.adapter.persistence.repository.mysql import Base
 from port.adapter.persistence.repository.mysql.category import MySQLCategoryRepository
 from port.adapter.persistence.repository.mysql.item import MySQLItemRepository
@@ -28,9 +28,7 @@ async def startup_handler() -> NoReturn:
     DIContainer.instance().register(DI.of(ItemIdFactory, {}, ItemIdFactoryImpl))
     DIContainer.instance().register(DI.of(ItemImageService, {}, ItemImageServiceImpl))
     DIContainer.instance().register(DI.of(ItemImageAdapter, {}, GreeedyMLItemImageAdapter))
-    DIContainer.instance().register(DI.of(CategoryRepository,
-                                          {"inmemory": InMemCategoryRepository, "mysql": MySQLCategoryRepository},
-                                          MySQLCategoryRepository))
+    DIContainer.instance().register(DI.of(CategoryRepository, {}, MySQLCategoryRepository))
     config = DIContainer.instance().resolve(MySQLConfig)
     DIContainer.instance().register(DI.of(Session, {}, Session(autocommit=False, autoflush=False, bind=config.engine())))
     # run consumer thread
