@@ -41,18 +41,17 @@ class CategoryApplicationService:
 
         _all = {}
         for operator, queries in command.operator_and_queries.items():
-            _all[Operator[operator]] = {Query(query.text, Operator[query.operator]) for query in queries}
+            _all[Operator.value_of(operator)] = {Query(query.text, Operator.value_of(query.operator)) for query in queries}
 
         category = Category(CategoryId(command.id), Gender[command.gender], CategoryName(command.name),
                             URL(command.image_url), sub_category_ids, QuerySet(_all))
 
         try:
-            self.__application_service_life_cycle.begin()
+            self.__application_service_life_cycle.begin(False)
             self.__category_repository.save(category)
+            self.__application_service_life_cycle.success()
         except Exception as e:
             self.__application_service_life_cycle.fail(e)
-        else:
-            self.__application_service_life_cycle.success()
 
     def delete(self, a_category_id: str) -> NoReturn:
         category_id = CategoryId(a_category_id)

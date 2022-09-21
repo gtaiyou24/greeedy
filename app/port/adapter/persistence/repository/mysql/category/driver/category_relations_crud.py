@@ -1,18 +1,15 @@
 from typing import NoReturn, List
 
 from injector import inject
+from sqlalchemy.orm import Session
 
-from config import MySQLConfig
-from port.adapter.persistence.repository.mysql.category.driver import BaseForCategoryRelations, \
-    CategoryRelationsTableRow
+from port.adapter.persistence.repository.mysql.category.driver import CategoryRelationsTableRow
 
 
 class CategoryRelationsCrud:
-
     @inject
-    def __init__(self, mysql_config: MySQLConfig):
-        self.__session = mysql_config.session()
-        BaseForCategoryRelations.metadata.create_all(bind=mysql_config.engine())
+    def __init__(self, session: Session):
+        self.__session = session
 
     def upsert(self, category_relations_table_row_list: List[CategoryRelationsTableRow]) -> NoReturn:
         parent_category_ids = set([t.parent_category_id for t in category_relations_table_row_list])

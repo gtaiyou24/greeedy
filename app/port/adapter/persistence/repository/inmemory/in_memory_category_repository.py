@@ -1,5 +1,7 @@
 from typing import List, Optional, NoReturn
 
+from slf4py import set_logger
+
 from domain.model.category import CategoryRepository, Category, CategoryId, CategoryName, CategoryTree
 from domain.model.gender import Gender
 from domain.model.query import QuerySet, Operator, Query
@@ -121,6 +123,7 @@ WOMEN_ワンピース = Category(CategoryId("women-onepiece"), Gender.WOMEN, Cat
                        QuerySet({Operator.OR: [Query("ワンピース")]}))
 
 
+@set_logger
 class InMemCategoryRepository(CategoryRepository):
     __women_category_tree: List[CategoryTree] = [
         CategoryTree(WOMEN_トップス, [
@@ -187,7 +190,7 @@ class InMemCategoryRepository(CategoryRepository):
         return None
 
     def save(self, category: Category) -> NoReturn:
-        pass
+        self.log.debug(f'save {str(category)}')
 
     def delete(self, category_id: CategoryId) -> NoReturn:
-        pass
+        self.log.debug(f'delete {category_id}')

@@ -25,7 +25,6 @@
 app
 ├── application  # アプリケーション層
 ├── config  # 設定パッケージ
-├── di  # DIパッケージ
 ├── domain  # ドメイン層
 │   └── model
 ├── exception  # 例外パッケージ

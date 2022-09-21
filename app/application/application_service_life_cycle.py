@@ -1,16 +1,18 @@
 from typing import Optional
 
 from injector import singleton, inject
+from slf4py import set_logger
+from sqlalchemy.orm import Session
 
-from config import MySQLConfig
 from domain.model import DomainEventPublisher, DomainEventSubscriber, DomainEvent
 
 
+@set_logger
 @singleton
 class ApplicationServiceLifeCycle:
     @inject
-    def __init__(self, mysql_config: MySQLConfig):
-        self.__session = mysql_config.session()
+    def __init__(self, session: Session):
+        self.__session = session
 
     def begin(self, is_listening: bool = True):
         if is_listening:
@@ -24,6 +26,7 @@ class ApplicationServiceLifeCycle:
 
     def success(self):
         self.__session.commit()
+        self.log.debug('session committed')
 
     def listen(self):
         class DomainEventSubscriberImpl(DomainEventSubscriber):
