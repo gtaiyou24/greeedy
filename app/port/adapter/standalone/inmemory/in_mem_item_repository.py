@@ -6,7 +6,7 @@ from domain.model.item.id import ItemId
 
 
 @set_logger
-class InMemoryItemRepository(ItemRepository):
+class InMemItemRepository(ItemRepository):
     __items: List[Item] = list()
 
     def save(self, item: Item):

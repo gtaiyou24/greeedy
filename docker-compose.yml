@@ -7,7 +7,7 @@ services:
     container_name: app
     environment:
       LOG_LEVEL: DEBUG
-      DI_PROFILE_ACTIVES: mysql,elasticsearch
+      DI_PROFILE_ACTIVES: inmemory,elasticsearch
       SQS_ENDPOINT_URL: http://localstack:4566
       SQS_REGION_NAME: ap-northeast-1
       SQS_QUEUE_URL: http://localhost:4566/000000000000/greeedy-queue
