@@ -1,2 +1,3 @@
 from .get_category_dpo import GetCategoryDpo
+from .get_category_list_dpo import GetCategoryListDpo
 from .get_category_tree_list_dpo import GetCategoryTreeDpo

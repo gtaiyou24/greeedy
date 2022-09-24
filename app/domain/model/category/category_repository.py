@@ -14,6 +14,10 @@ class CategoryRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def category_list_of(self, start: int, limit: int, sort: str) -> list[Category]:
+        pass
+
+    @abc.abstractmethod
     def category_of(self, category_id: CategoryId) -> Optional[Category]:
         pass
 

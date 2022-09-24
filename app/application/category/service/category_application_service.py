@@ -4,7 +4,7 @@ from injector import singleton, inject
 
 from application import ApplicationServiceLifeCycle
 from application.category.command import SaveCategoryCommand
-from application.category.dpo import GetCategoryTreeDpo, GetCategoryDpo
+from application.category.dpo import GetCategoryTreeDpo, GetCategoryDpo, GetCategoryListDpo
 from domain.model.category import CategoryRepository, CategoryId, Category, CategoryName
 from domain.model.gender import Gender
 from domain.model.query import QuerySet, Operator, Query
@@ -35,6 +35,10 @@ class CategoryApplicationService:
                 ErrorCode.CATEGORY_NOT_FOUND, 'カテゴリID {} のカテゴリが見つかりませんでした'.format(category_id.value))
 
         return GetCategoryDpo(category=category)
+
+    def get_category_list(self, start: int, limit: int, sort: str) -> GetCategoryListDpo:
+        category_list = self.__category_repository.category_list_of(start, limit, sort)
+        return GetCategoryListDpo(category_list=category_list)
 
     def save(self, command: SaveCategoryCommand) -> NoReturn:
         sub_category_ids = [CategoryId(sub_category_id) for sub_category_id in command.sub_category_ids]

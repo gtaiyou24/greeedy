@@ -1,6 +1,7 @@
 from typing import Optional, NoReturn
 
 from injector import inject
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
 from port.adapter.persistence.repository.mysql.category.driver import CategoriesTableRow
@@ -14,6 +15,12 @@ class CategoriesCrud:
     def find_by_id(self, id: str) -> Optional[CategoriesTableRow]:
         categories_table_row = self.__session.query(CategoriesTableRow).get(id)
         return categories_table_row
+
+    def find_all(self, offset: int, limit: int, sort: str) -> list[CategoriesTableRow]:
+        return self.__session.query(CategoriesTableRow)\
+            .order_by(desc(CategoriesTableRow.created_at)) \
+            .slice(offset, limit)\
+            .all()
 
     def upsert(self, categories_table_row: CategoriesTableRow) -> NoReturn:
         optional = self.find_by_id(categories_table_row.id)

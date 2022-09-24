@@ -44,6 +44,10 @@ class DriverManagerCategory:
             category_queries_table_row.to_query_set()
         )
 
+    def find_all(self, start: int, limit: int, sort: str) -> list[Category]:
+        categories_table_row_list = self.__categories_crud.find_all(start - 1, limit, sort)
+        return [self.find_by_id(CategoryId(tr.id)) for tr in categories_table_row_list]
+
     def upsert(self, category: Category) -> NoReturn:
         self.__categories_crud.upsert(CategoriesTableRow.of(category))
         self.__category_queries_crud.upsert(CategoryQueriesTableRow.of(category))

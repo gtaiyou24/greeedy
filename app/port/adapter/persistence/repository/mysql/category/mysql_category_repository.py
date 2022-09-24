@@ -23,6 +23,9 @@ class MySQLCategoryRepository(CategoryRepository):
     def categories_of(self, category_ids: set[CategoryId]) -> set[Category]:
         return set({self.__cache_layer_category.category_or_origin(category_id) for category_id in category_ids})
 
+    def category_list_of(self, start: int, limit: int, sort: str) -> list[Category]:
+        return self.__driver_manager_category.find_all(start, limit, sort)
+
     def category_of(self, category_id: CategoryId) -> Optional[Category]:
         return self.__cache_layer_category.category_or_origin(category_id)
 

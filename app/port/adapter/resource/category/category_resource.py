@@ -5,7 +5,7 @@ from di import DIContainer
 from application.category.command import SaveCategoryCommand
 from application.category.service import CategoryApplicationService
 from port.adapter.resource.category.request import RequestSaveCategory
-from port.adapter.resource.category.response import GetCategoryTreeListJson, GetCategoryJson
+from port.adapter.resource.category.response import GetCategoryTreeListJson, GetCategoryJson, GetCategoryListJson
 
 router = APIRouter(
     prefix="/categories",
@@ -41,3 +41,10 @@ def get(category_id: str) -> GetCategoryJson:
     category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
     dpo = category_application_service.get_category(category_id)
     return GetCategoryJson.of(dpo)
+
+
+@router.get("/", name="カテゴリ一覧取得機能")
+def list(start: int = 1, limit: int = 20, sort: str = 'created_desc') -> GetCategoryListJson:
+    category_application_service = DIContainer.instance().resolve(CategoryApplicationService)
+    dpo = category_application_service.get_category_list(start, limit, sort)
+    return GetCategoryListJson.of(dpo)

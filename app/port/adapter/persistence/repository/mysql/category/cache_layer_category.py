@@ -23,3 +23,7 @@ class CacheLayerCategory:
     @cached(cache=TTLCache(maxsize=128, ttl=__TTL))
     def category_or_origin(self, category_id: CategoryId) -> Optional[Category]:
         return self.__driver_manager_category.find_by_id(category_id)
+
+    @cached(cache=TTLCache(maxsize=128, ttl=__TTL))
+    def category_list_or_origin(self, start: int, limit: int, sort: str) -> list[Category]:
+        return self.__driver_manager_category.find_all(start, limit, sort)
