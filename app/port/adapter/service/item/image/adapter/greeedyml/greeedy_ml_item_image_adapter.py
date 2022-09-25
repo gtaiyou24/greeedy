@@ -4,6 +4,7 @@ import requests
 from injector import inject, singleton
 from slf4py import set_logger
 
+from domain.model.color import Color
 from domain.model.item.image import ItemImage
 from domain.model.url import URL
 from exception import SystemException, ErrorCode
@@ -21,8 +22,11 @@ class GreeedyMLItemImageAdapter(ItemImageAdapter):
         self.__connection_timeout = 30.0
         self.__read_timeout = 120.0
 
-    def estimate(self, image_urls: list[URL]) -> list[ItemImage]:
-        payload = {'image_urls': [image_url.address for image_url in image_urls]}
+    def estimate(self, image_urls: list[URL], colors: set[Color]) -> list[ItemImage]:
+        payload = {
+            'image_urls': [image_url.address for image_url in image_urls],
+            'option_colors': [color.value for color in colors]
+        }
         self.log.debug(f'payload = {payload}')
         try:
             response = requests.post(self.__estimate_image_url,
@@ -40,3 +44,5 @@ class GreeedyMLItemImageAdapter(ItemImageAdapter):
         except requests.exceptions.RequestException as e:
             raise SystemException(ErrorCode.GREEEDY_ML_REQUEST_ERROR,
                                   f'url = {self.__estimate_image_url}, error = {str(e)}')
+        except Exception as e:
+            self.log.error(e)

@@ -28,6 +28,7 @@ app
 ├── domain  # ドメイン層
 │   └── model
 ├── exception  # 例外パッケージ
+├── notification  # 通知パッケージ
 └── port
     └── adapter  # ポート・アダプター層
 ```
@@ -75,6 +76,7 @@ $ aws sqs send-message \
   "event": {
     "name": "レースパンチングブラウス・全2色・b71916",
     "brand_name": "DHOLIC",
+    "colors": ["white", "black"],
     "price": 2570,
     "description": "[DESIGN]\n\n総レースがフェミニンなブラウスです。\nカラーネックが端正で中央のボタンが開閉できます。\n肩と裾はスカラップレースでムードUP↑\n\nレースは肩をやや覆うデザインです。\nフロントはバイアス状に、バックは縦のパンチングで\nコントラストをつけました。\nコーデの主役になるのでデニムに着流すだけでも◎\n\n\n※素材の特性上、多少透け感がございます。\nスキントーンの下着とお召しいただくと安心です。\n\n\n※製造過程上、パターンにずれが生じる\n場合がありますが不備ではございません。",
     "gender": "WOMEN",
@@ -131,7 +133,8 @@ $ aws sqs receive-message \
 <details><summary>UT実行方法</summary>
 
 ```bash
-$ pytest -v .
+$ cd app
+$ python -m pytest -v ../tests
 ```
 
 </details>

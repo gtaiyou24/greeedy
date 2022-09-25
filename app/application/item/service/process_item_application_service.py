@@ -3,6 +3,7 @@ from typing import NoReturn
 from injector import singleton, inject
 
 from application.item.command import ProcessItemCommand
+from domain.model.color import Color
 from domain.model.gender import Gender
 from domain.model.item import Item, ItemName, BrandName, Price, Description, ItemIndex
 from domain.model.item.id import ItemIdFactory
@@ -22,7 +23,8 @@ class ProcessItemApplicationService:
     def process(self, command: ProcessItemCommand) -> NoReturn:
         item_id = self.__item_id_factory.make(command.url)
 
-        images = self.__item_image_service.estimate([URL(image.url) for image in command.images])
+        images = self.__item_image_service.estimate([URL(image.url) for image in command.images],
+                                                    {Color.value_of(color) for color in command.colors})
 
         item = Item(
             item_id, ItemName(command.name), BrandName(command.brand_name),

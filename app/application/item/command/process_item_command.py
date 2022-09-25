@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List, Optional
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -15,9 +14,10 @@ class ProcessItemCommand:
 
     name: str
     brand_name: str
+    colors: set[str]
     price: float
     description: str
     gender: str
-    images: List[Image]
+    images: list[Image]
     url: str
     meta: Meta

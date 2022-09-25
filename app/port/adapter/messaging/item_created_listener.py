@@ -27,6 +27,7 @@ class ItemCreatedListener(ExchangeListener):
             ProcessItemCommand(
                 name=reader.event_str_value('name'),
                 brand_name=reader.event_str_value('brand_name'),
+                colors={color for color in eval(reader.event_str_value('colors'))},
                 price=reader.event_float_value('price'),
                 description=reader.event_str_value('description'),
                 gender=reader.event_str_value('gender'),
