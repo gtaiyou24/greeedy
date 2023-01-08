@@ -6,7 +6,7 @@ from elasticsearch_dsl.response import Response
 from injector import inject
 from slf4py import set_logger
 
-from config import ElasticsearchConfig
+from core import ElasticsearchConfig
 from domain.model.category import Category
 from domain.model.color import Color
 from domain.model.gender import Gender

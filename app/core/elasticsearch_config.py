@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
 from injector import inject
 
-from config.credential import ElasticsearchCredentialGetter
+from core.credential import ElasticsearchCredentialGetter
 
 
 class ElasticsearchConfig:

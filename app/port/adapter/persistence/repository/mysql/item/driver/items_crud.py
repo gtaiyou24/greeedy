@@ -4,7 +4,7 @@ from injector import inject
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from config import MySQLConfig
+from core import MySQLConfig
 from port.adapter.persistence.repository.mysql.item.driver import BaseForItems, ItemsTableRow
 
 

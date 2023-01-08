@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from mangum import Mangum
 from mangum.types import LambdaEvent, LambdaContext
 
-from config import exception_handlers, event_handlers
+from core import exception_handlers, event_handlers
 from exception import SystemException
 from port.adapter.messaging.sqs import SQSMessageConsumer
 from port.adapter.resource.category import category_resource

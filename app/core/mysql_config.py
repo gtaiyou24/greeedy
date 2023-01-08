@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import scoped_session, sessionmaker, Session
 
-from config.credential import MySQLCredentialGetter
+from core.credential import MySQLCredentialGetter
 
 
 class MySQLConfig:

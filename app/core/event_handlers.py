@@ -4,7 +4,7 @@ from typing import NoReturn
 from di import DIContainer, DI
 from sqlalchemy.orm import Session
 
-from config import MySQLConfig
+from core import MySQLConfig
 from domain.model.category import CategoryRepository
 from domain.model.item import ItemIndex, ItemRepository
 from domain.model.item.id import ItemIdFactoryImpl, ItemIdFactory
