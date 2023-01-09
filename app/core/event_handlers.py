@@ -15,8 +15,8 @@ from port.adapter.persistence.repository.mysql import Base
 from port.adapter.persistence.repository.mysql.category import MySQLCategoryRepository
 from port.adapter.persistence.repository.mysql.item import MySQLItemRepository
 from port.adapter.service.item.image import ItemImageServiceImpl
-from port.adapter.service.item.image.adapter import ItemImageAdapter
-from port.adapter.service.item.image.adapter.greeedyml import GreeedyMLItemImageAdapter
+from port.adapter.service.item.image.adapter import ColorAdapter, ImageTypeAdapter
+from port.adapter.service.item.image.adapter.estimator import EstimatorColorAdapter, EstimatorImageTypeAdapter
 from port.adapter.standalone.inmemory import InMemCategoryRepository, InMemItemRepository
 
 
@@ -28,7 +28,8 @@ async def startup_handler() -> NoReturn:
                                           MySQLItemRepository))
     DIContainer.instance().register(DI.of(ItemIdFactory, {}, ItemIdFactoryImpl))
     DIContainer.instance().register(DI.of(ItemImageService, {}, ItemImageServiceImpl))
-    DIContainer.instance().register(DI.of(ItemImageAdapter, {}, GreeedyMLItemImageAdapter))
+    DIContainer.instance().register(DI.of(ColorAdapter, {}, EstimatorColorAdapter))
+    DIContainer.instance().register(DI.of(ImageTypeAdapter, {}, EstimatorImageTypeAdapter))
     DIContainer.instance().register(DI.of(CategoryRepository,
                                           {'inmemory': InMemCategoryRepository, 'mysql': MySQLCategoryRepository},
                                           MySQLCategoryRepository))

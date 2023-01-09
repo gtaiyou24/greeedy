@@ -22,15 +22,15 @@ class ProcessItemApplicationService:
 
     def process(self, command: ProcessItemCommand) -> NoReturn:
         item_id = self.__item_id_factory.make(command.url)
+        item_name = ItemName(command.name)
 
         images = self.__item_image_service.estimate([URL(image.url) for image in command.images],
+                                                    item_name,
                                                     {Color.value_of(color) for color in command.colors})
 
         item = Item(
-            item_id, ItemName(command.name), BrandName(command.brand_name),
-            Price(command.price, Price.Currency.JPY),
-            Description(command.description), Gender[command.gender],
-            ItemImageList(images).sort(),
+            item_id, item_name, BrandName(command.brand_name), Price(command.price, Price.Currency.JPY),
+            Description(command.description), Gender[command.gender], ItemImageList(images).sort(),
             Page(URL(command.url), command.meta.keywords, command.meta.description))
 
         self.__item_index.add(item)

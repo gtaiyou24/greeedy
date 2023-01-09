@@ -1,1 +1,0 @@
-from .greeedy_ml_item_image_adapter import GreeedyMLItemImageAdapter

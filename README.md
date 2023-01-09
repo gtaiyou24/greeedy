@@ -43,7 +43,7 @@ app
 $ cd ~/path/to/greeedy
 
 # .envファイルをコピーして、適切な値に書き換える
-$ cp ./elasticsearch/.env.sample ./elasticsearch/.env
+$ cp ./services/elasticsearch/.env.sample ./services/elasticsearch/.env
 
 # コンテナの起動
 $ docker-compose up --build
