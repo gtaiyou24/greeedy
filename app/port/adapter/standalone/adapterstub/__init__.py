@@ -1,0 +1,1 @@
+from .color_adapter_stub import ColorAdapterStub

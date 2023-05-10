@@ -36,7 +36,8 @@ class ItemIndexRow(Document):
     images = Nested(properties={
         "type": Keyword(),
         "color": Keyword(),
-        "url": Keyword()
+        "url": Keyword(),
+        "thumbnail": Keyword()
     })
     page = Nested(properties={
         "url": Keyword(),
@@ -53,7 +54,7 @@ class ItemIndexRow(Document):
     })
 
     class Index:
-        name = "items_20220801"
+        name = "items_20230509"
         settings = {
             "analysis": {
                 # 1. Character filters

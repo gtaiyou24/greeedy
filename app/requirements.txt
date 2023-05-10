@@ -23,3 +23,5 @@ cachetools==5.2.0
 # ElasticSearch(Amazon Opensearch Serviceを利用するために7.14より低いバージョンを指定)
 elasticsearch<7.14
 elasticsearch-dsl==7.4.0
+# 画像
+Pillow==9.5.0
