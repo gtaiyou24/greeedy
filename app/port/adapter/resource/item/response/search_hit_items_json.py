@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import List, Set
 
 from pydantic import BaseModel, Field
@@ -23,6 +24,7 @@ class SearchHitItemsJson(BaseModel):
         class Image(BaseModel):
             type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
             color: str = Field(default="WHITE", title="カラー")
+            thumbnail: str = Field(title="サムネイル画像URL")
             url: str = Field(title="画像URL")
 
         ranking: int = Field(description="検索結果の順位")
@@ -53,7 +55,9 @@ class SearchHitItemsJson(BaseModel):
                                              SearchHitItemsJson.Hit.Image(
                                                  type=image.type.name,
                                                  color=image.color.name,
-                                                 url=image.url.address
+                                                 thumbnail=os.getenv("CF_DOMAIN",
+                                                                     "greeedy.cloudfront.net") + image.thumbnail.file_path,
+                                                 url=image.url.address,
                                              ) for image in item.images.list
                                          ],
                                          page_url=item.page.url.address)

@@ -20,7 +20,6 @@ class ItemCreatedListener(ExchangeListener):
         self.__process_item_application = process_item_application
 
     def filtered_dispatch(self, event_type: str, text_message: str) -> NoReturn:
-        self.log.debug(f'event_type = {event_type}, text_message = {text_message}')
         reader = NotificationReader(text_message)
 
         self.__process_item_application.process(

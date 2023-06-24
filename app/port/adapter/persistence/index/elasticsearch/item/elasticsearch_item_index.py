@@ -12,7 +12,7 @@ from domain.model.color import Color
 from domain.model.gender import Gender
 from domain.model.item import ItemIndex, Item, SearchHitItems, Price, ItemName, BrandName, Description
 from domain.model.item.id import ItemId
-from domain.model.item.image import ItemImageList, ItemImage, ImageType
+from domain.model.item.image import ItemImageList, ItemImage, ImageType, ImagePath
 from domain.model.page import Page
 from domain.model.url import URL
 from port.adapter.persistence.index.elasticsearch.item import ItemIndexRow, ItemQueryBuilder
@@ -34,8 +34,10 @@ class ElasticsearchItemIndex(ItemIndex):
             price=item.price.type_of(Price.PriceType.NORMAL_PRICE).amount,
             description=item.description.text,
             gender=item.gender.name,
-            images=[{"type": image.type.name, "color": image.color.name, "url": image.url.address} \
-                    for image in item.images.list],
+            images=[
+                {"type": image.type.name, "color": image.color.name,
+                 "url": image.url.address, "thumbnail": image.thumbnail.file_path} for image in item.images.list
+            ],
             page={
                 "keywords": item.page.keywords,
                 "description": item.page.description,
@@ -58,8 +60,10 @@ class ElasticsearchItemIndex(ItemIndex):
             Price(int(item_document.price), Price.Currency.JPY),
             Description(str(item_document.description)),
             Gender[str(item_document.gender)],
-            ItemImageList([ItemImage(ImageType[image.type], Color[image.color], URL(image.url)) \
-                           for image in item_document.images]),
+            ItemImageList(
+                [ItemImage(ImageType[image.type], Color[image.color], URL(image.url), ImagePath(image.thumbnail)) \
+                 for image in item_document.images]
+            ),
             Page(
                 URL(str(item_document.page.url)),
                 str(item_document.page.keywords),
@@ -97,8 +101,10 @@ class ElasticsearchItemIndex(ItemIndex):
                 Price(int(hit.price), Price.Currency.JPY),
                 Description(str(hit.description)),
                 Gender[str(hit.gender)],
-                ItemImageList([ItemImage(ImageType[image.type], Color[image.color], URL(image.url)) \
-                               for image in hit.images]),
+                ItemImageList(
+                    [ItemImage(ImageType[image.type], Color[image.color], URL(image.url), ImagePath(image.thumbnail)) \
+                     for image in hit.images]
+                ),
                 Page(URL(str(hit.page.url)), str(hit.page.keywords), str(hit.page.description))
             )
             items.append(item)

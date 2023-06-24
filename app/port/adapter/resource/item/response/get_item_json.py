@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import List
 
 from pydantic import BaseModel, Field
@@ -16,6 +17,7 @@ class GetItemJson(BaseModel):
     class ItemImage(BaseModel):
         type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
         color: str = Field(default="WHITE", title="カラー")
+        thumbnail: str = Field(title="サムネイル画像URL")
         url: str = Field(title="画像URL")
 
     id: str = Field(description="アイテムID")
@@ -35,7 +37,9 @@ class GetItemJson(BaseModel):
                            description=dpo.item.description.text,
                            gender=dpo.item.gender.name,
                            images=[
-                               GetItemJson.ItemImage(type=image.type.name, color=image.color.name, url=image.url.address) \
+                               GetItemJson.ItemImage(
+                                   type=image.type.name, color=image.color.name, url=image.url.address,
+                                   thumbnail=os.getenv("CF_DOMAIN", "greeedy.cloudfront.net") + image.thumbnail.file_path) \
                                for image in dpo.item.images.list
                            ],
                            url=dpo.item.page.url.address)

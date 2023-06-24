@@ -4,10 +4,15 @@
 ## Structure
 <details><summary>システム構成</summary>
 
-本システムは、ファッションブランドとファッションアイテムの管理と検索を可能にするためのコンテキストです。
-検索エンジンには、Amazon Opensearch Serviceを採用し、データベースには[PlanetScale](https://planetscale.com)のMySQLを採用しています。
+本システムは、ファッションアイテムの検索と表示について責務を担うコンテキストです。
 
 ![](./doc/システム構成図.png)
+
+ - [Lightsail - AWS](https://lightsail.aws.amazon.com/ls/webapp/home/containers)
+   - [Compute](https://lightsail.aws.amazon.com/ls/webapp/ap-northeast-1/container-services/greeedy/deployments)
+   - [Database](https://lightsail.aws.amazon.com/ls/webapp/ap-northeast-1/databases/Greeedy/connect)
+ - [SQS - AWS](https://ap-northeast-1.console.aws.amazon.com/sqs/v2/home?region=ap-northeast-1#/queues/https%3A%2F%2Fsqs.ap-northeast-1.amazonaws.com%2F684886458640%2Fgreeedy-queue)
+ - [OpenSearch - AWS](https://ap-northeast-1.console.aws.amazon.com/aos/home?region=ap-northeast-1#opensearch/domains/greeedy-opensearch-dev)
 
 </details>
 
