@@ -31,7 +31,7 @@ class InMemCategoryRepository(CategoryRepository):
                            [], QuerySet({Operator.OR: [Query('シャツ'), Query('ブラウス')]})))
         self.save(Category(CategoryId('women-tops-3'), Gender.WOMEN, CategoryName('ニット/セーター'),
                            URL('https://www.dzimg.com/Dahong/201911/860222_17428735_k3.jpg'), [],
-                           QuerySet({Operator.OR: [Query('シャツ'), Query('ブラウス')]})))
+                           QuerySet({Operator.OR: [Query('ニット'), Query('セーター')]})))
         self.save(Category(CategoryId('women-tops-4'), Gender.WOMEN, CategoryName('ベスト'),
                            URL('https://img.ltwebstatic.com/images3_pi/2021/06/23/16244509286debc49a0974a3f8dc9d441d43af3769_thumbnail_600x.webp'),
                            [], QuerySet({Operator.OR: [Query('ベスト')]})))
