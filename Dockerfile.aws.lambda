@@ -1,6 +1,6 @@
 FROM public.ecr.aws/lambda/python:3.9
 
-COPY . .
+COPY app .
 
 RUN yum install -y python3-devel mysql-devel gcc && \
     pip install --upgrade pip && \

@@ -5,8 +5,8 @@ MAINTAINER gtaiyou24 gtaiyou24@gmail.com
 ENV TZ=Asia/Tokyo
 
 ARG project_dir=/app/
-COPY . $project_dir
-COPY requirements.txt $project_dir
+COPY app $project_dir
+COPY app/requirements.txt $project_dir
 WORKDIR $project_dir
 
 # ライブラリをインストール

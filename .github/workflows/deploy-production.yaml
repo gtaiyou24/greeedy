@@ -5,7 +5,7 @@ on:
       - main
 env:
   DOCKER_IMAGE_NAME: greeedy-lightsail:latest
-  DOCKERFILE_PATH: ./app/Dockerfile
+  DOCKERFILE_PATH: ./Dockerfile
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -56,6 +56,7 @@ jobs:
                       --containers "{
                         \"${service_name}\": {
                           \"image\": \"$IMAGE_TAG\",
+                          \"command\": [\"uvicorn start_app\:app --host 0.0.0.0\"],
                           \"environment\": {
                             \"CF_DOMAIN\": \"${{ vars.CF_DOMAIN }}\",
                             \"DI_PROFILE_ACTIVES\": \"${{ vars.DI_PROFILE_ACTIVES }}\",
