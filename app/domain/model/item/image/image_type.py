@@ -4,6 +4,11 @@ from enum import Enum
 
 
 class ImageType(Enum):
+    MODEL_WEARING = 'モデル着用画像'
+    ITEM_ONLY = 'アイテム単品画像'
+    ZOOM_IN = 'ズームイン画像'
+    OTHER = 'その他'
+
     ITEM_ANGLED = "pack-angled"
     ITEM_BACK = "pack-back"
     ITEM_BOTTOM = "pack-bottom"
