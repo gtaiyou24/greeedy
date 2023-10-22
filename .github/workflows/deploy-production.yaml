@@ -56,7 +56,12 @@ jobs:
                       --containers "{
                         \"${service_name}\": {
                           \"image\": \"$IMAGE_TAG\",
-                          \"command\": \"uvicorn start_app\\:app --host 0.0.0.0\",
+                          \"command\": [
+                            \"uvicorn\", 
+                            \"start_app\\:app\",
+                            \"--host\",
+                            \"0.0.0.0\"
+                          ],
                           \"environment\": {
                             \"CF_DOMAIN\": \"${{ vars.CF_DOMAIN }}\",
                             \"DI_PROFILE_ACTIVES\": \"${{ vars.DI_PROFILE_ACTIVES }}\",
