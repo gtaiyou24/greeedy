@@ -48,6 +48,7 @@ app
 $ cd ~/path/to/greeedy
 
 # .envファイルをコピーして、適切な値に書き換える
+$ cp .env.sample .env
 $ cp ./services/elasticsearch/.env.sample ./services/elasticsearch/.env
 
 # コンテナの起動

@@ -3,30 +3,14 @@ version: "3.4"
 services:
   # App
   app:
-    build: ./app
+    build: ./
     container_name: app
-    environment:
-      LOG_LEVEL: DEBUG
-      DI_PROFILE_ACTIVES: adapterstub,inmemory,elasticsearch
-      SQS_ENDPOINT_URL: http://localstack:4566
-      SQS_REGION_NAME: ap-northeast-1
-      SQS_QUEUE_URL: http://localhost:4566/000000000000/greeedy-queue
-      MYSQL_USERNAME: user
-      MYSQL_PASSWORD: pass
-      MYSQL_HOSTNAME: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE_NAME: greeedy
-      CF_DOMAIN: d3kdd1ltvk6eth.cloudfront.net
-      ELASTICSEARCH_HOSTNAME: elasticsearch
-      ELASTICSEARCH_USERNAME: elastic
-      ELASTICSEARCH_PASSWORD: changeme
-      USER_DICTIONARY_PATH: extra/user_dictionary.txt
-      SYNONYMS_PATH: extra/synonyms.txt
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     volumes:
       - ./app:/app/
-      - $HOME/.aws:/root/.aws
 
   # Amazon SQS
   localstack:
