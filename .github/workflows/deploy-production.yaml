@@ -58,7 +58,7 @@ jobs:
                           \"image\": \"$IMAGE_TAG\",
                           \"command\": [
                             \"uvicorn\", 
-                            \"start_app\\:app\",
+                            \"start_app:app\",
                             \"--host\",
                             \"0.0.0.0\"
                           ],
