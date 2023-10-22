@@ -133,6 +133,22 @@ class InMemCategoryRepository(CategoryRepository):
         self.save(Category(CategoryId('women-onepiece-3'), Gender.WOMEN, CategoryName('ニットワンピース'),
                            URL('https://cdn.grail.bz/images/goods/d/rut785/rut785_v1.jpg'), [],
                            QuerySet({Operator.OR: [Query('ニットワンピース')]})))
+        self.save(Category(CategoryId('MEN'), Gender.WOMEN, CategoryName('メンズ'),
+                           URL('https://cdn.nugu.jp/public/b4765e027805ede224fd2914a60be51c.png'),
+                           [CategoryId('men-tops'), CategoryId('men-outwear'), CategoryId('men-pants')],
+                           QuerySet({})))
+        self.save(Category(CategoryId('men-tops'), Gender.WOMEN, CategoryName('トップス'),
+                           URL('https://cdn.nugu.jp/public/76afcd161abd582dc3773d98d80e4b5c.jpg'),
+                           [],
+                           QuerySet({Operator.OR: [Query('トップス')]})))
+        self.save(Category(CategoryId('men-outwear'), Gender.WOMEN, CategoryName('ジャケット/アウター'),
+                           URL('https://cdn.nugu.jp/public/b4765e027805ede224fd2914a60be51c.png'),
+                           [],
+                           QuerySet({Operator.OR: [Query('ジャケット'), Query('アウター')]})))
+        self.save(Category(CategoryId('men-pants'), Gender.WOMEN, CategoryName('パンツ'),
+                           URL('https://cdn.nugu.jp/public/eee1373e69781d4dc2ab6894779df1dd.jpg'),
+                           [],
+                           QuerySet({Operator.OR: [Query('パンツ')]})))
 
     def category_tree_of(self, category_id: CategoryId) -> CategoryTree:
         root_category = self.category_dict.get(category_id)
