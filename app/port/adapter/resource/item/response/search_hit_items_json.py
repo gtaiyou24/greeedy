@@ -1,11 +1,33 @@
 from __future__ import annotations
 
 import os
+from enum import Enum
 from typing import List, Set
 
 from pydantic import BaseModel, Field
 
 from application.item.dpo import SearchHitItemsDpo
+from domain.model.item.image import ImageType
+
+class ImageTypeField(str, Enum):
+    MODEL_WEARING = 'MODEL_WEARING'
+    ONLY_ITEM = 'ONLY_ITEM'
+    ZOOM_IN = 'ZOOM_IN'
+    OTHER = 'OTHER'
+
+    @staticmethod
+    def of(image_type: ImageType) -> ImageTypeField:
+        if image_type in [ImageType.MODEL_WEARING, ImageType.MODEL_BACK_CLOSE, ImageType.MODEL_BACK_FULL,
+                          ImageType.MODEL_DETAIL, ImageType.MODEL_FRONT_CLOSE, ImageType.MODEL_FRONT_FULL,
+                          ImageType.MODEL_SIDE_CLOSE, ImageType.MODEL_SIDE_FULL]:
+            return ImageTypeField.MODEL_WEARING
+        elif image_type in [ImageType.ONLY_ITEM, ImageType.ITEM_FRONT]:
+            return ImageTypeField.ONLY_ITEM
+        elif image_type in [ImageType.ZOOM_IN, ImageType.ITEM_ANGLED, ImageType.ITEM_BACK, ImageType.ITEM_BOTTOM,
+                            ImageType.ITEM_DETAIL, ImageType.ITEM_SIDE, ImageType.ITEM_TOP]:
+            return ImageTypeField.ZOOM_IN
+        else:
+            return ImageTypeField.OTHER
 
 
 class SearchHitItemsJson(BaseModel):
@@ -22,7 +44,7 @@ class SearchHitItemsJson(BaseModel):
 
     class Hit(BaseModel):
         class Image(BaseModel):
-            type: str = Field(default="MODEL_WEARING", title="画像種別", description="MODEL_WEARING=モデル着用画像")
+            type: ImageTypeField = ImageTypeField.MODEL_WEARING
             color: str = Field(default="WHITE", title="カラー")
             thumbnail: str = Field(title="サムネイル画像URL")
             url: str = Field(title="画像URL")
@@ -53,7 +75,7 @@ class SearchHitItemsJson(BaseModel):
                                          description=item.description.text, gender=item.gender.name,
                                          images=[
                                              SearchHitItemsJson.Hit.Image(
-                                                 type=image.type.name,
+                                                 type=ImageTypeField.of(image.type),
                                                  color=image.color.name,
                                                  thumbnail=os.getenv("CF_DOMAIN",
                                                                      "greeedy.cloudfront.net") + image.thumbnail.file_path,
