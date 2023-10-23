@@ -17,7 +17,10 @@ class ItemImageList:
         super().__setattr__("list", images)
 
     def sort(self) -> ItemImageList:
-        image_types = {ImageType.ZOOM_IN, ImageType.OTHER}
+        image_types = {
+            ImageType.ZOOM_IN, ImageType.OTHER, ImageType.MODEL_DETAIL, ImageType.UNKNOWN,
+            ImageType.ITEM_ANGLED, ImageType.ITEM_BACK, ImageType.ITEM_BOTTOM, ImageType.ITEM_DETAIL
+        }
         if self.__has_only(image_types):
             return self
 
