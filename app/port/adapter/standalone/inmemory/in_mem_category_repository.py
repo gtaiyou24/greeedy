@@ -83,7 +83,7 @@ class InMemCategoryRepository(CategoryRepository):
                            URL('https://www.dzimg.com/Dahong/202102/1050177_18538764_k3.jpg'), [],
                            QuerySet({Operator.OR: [Query('トレンチコート')]})))
         self.save(Category(CategoryId('women-outwear-10'), Gender.WOMEN, CategoryName('チェスターコート'),
-                           URL('https://www.dzimg.com/Dahong/202010/984471_18113399_k3.gif'), [],
+                           URL('https://cdn.grail.bz/images/goods/d/k9030v/k9030v_v1.jpg'), [],
                            QuerySet({Operator.OR: [Query('チェスターコート')]})))
         self.save(Category(CategoryId('women-pants'), Gender.WOMEN, CategoryName('パンツ'),
                            URL('https://img.ltwebstatic.com/images3_pi/2021/09/18/163194975494872b1dbf205e2b799463819854c5e0.webp'),
