@@ -14,7 +14,7 @@ class ItemQueryBuilder:
     bool_type = {Operator.AND: 'must', Operator.OR: 'should', Operator.NOT: 'must_not'}
 
     text_fields = ['name^2', 'name.gram', 'brand_name^2', 'keywords', 'description', 'description.ngram', 'content', 'content.ngram']
-    category_fields = ['name^3', 'name.gram', 'keywords', 'description', 'description.ngram', 'content', 'content.ngram']
+    category_fields = ['name^3', 'name.gram']
     designs_fields = ["name^3", "keywords", "description", "content^2"]
     details_fields = ["name^3", "keywords^2", "description^2", "content^2"]
 
