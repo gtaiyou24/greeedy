@@ -1,0 +1,403 @@
+# WOMEN
+- category_id: WOMEN
+  gender: WOMEN
+  name: レディース
+  url: https://cdn.grail.bz/images/goods/d/mb1182/mb1182_v1.jpg
+  sub_category_ids:
+    - women-tops
+    - women-outwear
+    - women-pants
+    - women-skirt
+    - women-onepiece
+  query_set:
+
+# WOMEN - トップス
+- category_id: women-tops
+  gender: WOMEN
+  name: トップス
+  url: https://cdn.grail.bz/images/goods/d/mb1182/mb1182_v1.jpg
+  sub_category_ids:
+    - women-tops-1
+    - women-tops-2
+    - women-tops-3
+    - women-tops-4
+    - women-tops-5
+    - women-tops-6
+    - women-tops-7
+  query_set:
+    or:
+      - text: トップス
+        operator: and
+- category_id: women-tops-1
+  gender: WOMEN
+  name: Tシャツ/カットソー
+  url: https://img.ltwebstatic.com/images3_pi/2021/11/25/163780557807890b150c834e0a64613c41cf312c01_thumbnail_600x.webp
+  sub_category_ids:
+  query_set:
+    or:
+      - text: Tシャツ
+        operator: and
+      - text: カットソー
+        operator: and
+- category_id: women-tops-2
+  gender: WOMEN
+  name: シャツ/ブラウス
+  url: https://img.ltwebstatic.com/images3_pi/2021/07/08/162573610913a69d701058e5fc16b7a6c8036fbe29_thumbnail_600x.webp
+  sub_category_ids:
+  query_set:
+    or:
+      - text: シャツ
+        operator: and
+      - text: ブラウス
+        operator: and
+- category_id: women-tops-3
+  gender: WOMEN
+  name: ニット/セーター
+  url: https://www.dzimg.com/Dahong/201911/860222_17428735_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ニット
+        operator: and
+      - text: セーター
+        operator: and
+- category_id: women-tops-4
+  gender: WOMEN
+  name: ベスト
+  url: https://img.ltwebstatic.com/images3_pi/2021/06/23/16244509286debc49a0974a3f8dc9d441d43af3769_thumbnail_600x.webp
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ベスト
+        operator: and
+- category_id: women-tops-5
+  gender: WOMEN
+  name: パーカー
+  url: https://img.ltwebstatic.com/images3_pi/2021/08/03/1627980422b033c91e2fa51ba21a29517569abb6f4_thumbnail_600x.webp
+  sub_category_ids:
+  query_set:
+    or:
+      - text: パーカー
+        operator: and
+- category_id: women-tops-6
+  gender: WOMEN
+  name: スウェット
+  url: https://www.dzimg.com/Dahong/202110/1230699_19451240_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: スウェット
+        operator: and
+- category_id: women-tops-7
+  gender: WOMEN
+  name: カーディガン
+  url: https://img.ltwebstatic.com/images3_pi/2020/08/14/1597381885c1f77b726f6f6b56ab72d6535c112f10_thumbnail_600x.webp
+  sub_category_ids:
+  query_set:
+    or:
+      - text: カーディガン
+        operator: and
+
+# WOMEN - アウター
+- category_id: women-outwear
+  gender: WOMEN
+  name: ジャケット/アウター
+  url: https://www.dzimg.com/Dahong/202109/1200225_19202545_k3.gif
+  sub_category_ids:
+    - women-outwear-1
+    - women-outwear-2
+    - women-outwear-3
+    - women-outwear-4
+    - women-outwear-5
+    - women-outwear-6
+    - women-outwear-7
+    - women-outwear-8
+    - women-outwear-9
+    - women-outwear-10
+  query_set:
+    or:
+      - text: ジャケット
+        operator: and
+      - text: アウター
+        operator: and
+- category_id: women-outwear-1
+  gender: WOMEN
+  name: テーラードジャケット
+  url: https://cdn.grail.bz/images/goods/d/gc102/gc102_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: テーラードジャケット
+        operator: and
+- category_id: women-outwear-2
+  gender: WOMEN
+  name: ノーカラージャケット
+  url: https://www.dzimg.com/Dahong/202112/1280796_19825714_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ノーカラージャケット
+        operator: and
+- category_id: women-outwear-3
+  gender: WOMEN
+  name: ノーカラーコート
+  url: https://www.dzimg.com/Dahong/202111/1258963_19613088_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ノーカラーコート
+        operator: and
+- category_id: women-outwear-4
+  gender: WOMEN
+  name: デニムジャケット
+  url: https://cdn.grail.bz/images/goods/d/fo96l/fo96l_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: デニムジャケット
+        operator: and
+- category_id: women-outwear-5
+  gender: WOMEN
+  name: ライダースジャケット
+  url: https://cdn.grail.bz/images/goods/d/iz112/iz112_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ライダースジャケット
+        operator: and
+- category_id: women-outwear-6
+  gender: WOMEN
+  name: ブルゾン
+  url: https://cdn.grail.bz/images/goods/d/iz378/iz378_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ブルゾン
+        operator: and
+- category_id: women-outwear-7
+  gender: WOMEN
+  name: ミリタリージャケット
+  url: https://www.dzimg.com/Dahong/201703/704505_16034539_k3_4.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ミリタリージャケット
+        operator: and
+- category_id: women-outwear-8
+  gender: WOMEN
+  name: MA-1
+  url: https://www.dzimg.com/Dahong/202111/1245560_19486927_k3.gif
+  sub_category_ids:
+  query_set:
+    or:
+      - text: MA1
+        operator: and
+- category_id: women-outwear-9
+  gender: WOMEN
+  name: トレンチコート
+  url: https://www.dzimg.com/Dahong/202102/1050177_18538764_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: トレンチコート
+        operator: and
+- category_id: women-outwear-10
+  gender: WOMEN
+  name: チェスターコート
+  url: https://cdn.grail.bz/images/goods/d/k9030v/k9030v_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: チェスターコート
+        operator: and
+
+# WOMEN - パンツ
+- category_id: women-pants
+  gender: WOMEN
+  name: パンツ
+  url: https://img.ltwebstatic.com/images3_pi/2021/09/18/163194975494872b1dbf205e2b799463819854c5e0.webp
+  sub_category_ids:
+    - women-pants-1
+    - women-pants-2
+    - women-pants-3
+    - women-pants-4
+  query_set:
+    or:
+      - text: パンツ
+        operator: and
+- category_id: women-pants-1
+  gender: WOMEN
+  name: デニムパンツ
+  url: https://cdn.grail.bz/images/goods/d/cu289/cu289_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: デニムパンツ
+        operator: and
+      - text: ジーンズパンツ
+        operator: and
+- category_id: women-pants-2
+  gender: WOMEN
+  name: チノパン
+  url: https://cdn.grail.bz/images/goods/d/k8706w/k8706w_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: チノパン
+        operator: and
+- category_id: women-pants-3
+  gender: WOMEN
+  name: スラックス
+  url: https://www.dzimg.com/Dahong/202110/1224795_19392681_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: スラックス
+        operator: and
+- category_id: women-pants-4
+  gender: WOMEN
+  name: フレアパンツ
+  url: https://cdn.grail.bz/images/goods/d/cu34/cu34_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: フレアパンツ
+        operator: and
+
+# WOMEN - スカート
+- category_id: women-skirt
+  gender: WOMEN
+  name: スカート
+  url: https://img.ltwebstatic.com/images3_pi/2021/07/17/1626515436968136d71b8dfc7aaf86c1e6f7a58a35_thumbnail_600x.webp
+  sub_category_ids:
+    - women-skirt-1
+    - women-skirt-2
+    - women-skirt-3
+    - women-skirt-4
+  query_set:
+    or:
+      - text: スカート
+        operator: and
+- category_id: women-skirt-1
+  gender: WOMEN
+  name: フレアスカート
+  url: https://www.dzimg.com/Dahong/202201/1295073_20026004_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: フレアスカート
+        operator: and
+- category_id: women-skirt-2
+  gender: WOMEN
+  name: マーメイドスカート
+  url: https://cdn.grail.bz/images/goods/d/gc29/gc29_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: マーメイドスカート
+        operator: and
+- category_id: women-skirt-3
+  gender: WOMEN
+  name: タイトスカート
+  url: https://www.dzimg.com/Dahong/202111/1253205_19557262_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: タイトスカート
+        operator: and
+- category_id: women-skirt-4
+  gender: WOMEN
+  name: ギャザースカート
+  url: https://gd.image-qoo10.jp/%e3%82%b9%e3%82%ab%e3%83%bc%e3%83%88-%e3%82%ae%e3%83%a3%e3%82%b6%e3%83%bc-%e3%83%ad%e3%83%b3%e3%82%b0-%e3%83%9e%e3%82%ad%e3%82%b7%e4%b8%88-%e5%85%a84%e8%89%b2-%e9%9f%93%e5%9b%bd-30%e4%bb%a3-40%e4%bb%a3-50%e4%bb%a3-%e6%af%8d%e3%81%ae%e6%97%a5-%e3%82%bb%e3%83%bc%e3%83%ab-%e3%82%aa%e3%83%bc%e3%83%97%e3%83%b3%e8%a8%98%e5%bf%b5-2019%e5%b9%b4-%e6%98%a5/li/570/726/1208726570.g_400-w_g.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ギャザースカート
+        operator: and
+
+# WOMEN - ワンピース
+- category_id: women-onepiece
+  gender: WOMEN
+  name: ワンピース
+  url: https://www.dzimg.com/Dahong/202109/1210043_19276844_k3.jpg
+  sub_category_ids:
+    - women-onepiece-1
+    - women-onepiece-2
+    - women-onepiece-3
+  query_set:
+    or:
+      - text: ワンピース
+        operator: and
+- category_id: women-onepiece-1
+  gender: WOMEN
+  name: シャツワンピース
+  url: https://www.dzimg.com/Dahong/202201/1309074_20046036_k3.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: シャツワンピース
+        operator: and
+- category_id: women-onepiece-2
+  gender: WOMEN
+  name: ジャンパースカート
+  url: https://cdn.grail.bz/images/goods/d/rut747/rut747_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ジャンパースカート
+        operator: and
+- category_id: women-onepiece-3
+  gender: WOMEN
+  name: ニットワンピース
+  url: https://cdn.grail.bz/images/goods/d/rut785/rut785_v1.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ニットワンピース
+        operator: and
+
+# MEN
+- category_id: MEN
+  gender: MEN
+  name: メンズ
+  url: https://cdn.nugu.jp/public/b4765e027805ede224fd2914a60be51c.png
+  sub_category_ids:
+    - men-tops
+    - men-outwear
+    - men-pants
+  query_set:
+
+# MEN - トップス
+- category_id: men-tops
+  gender: MEN
+  name: トップス
+  url: https://cdn.nugu.jp/public/76afcd161abd582dc3773d98d80e4b5c.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: トップス
+        operator: and
+
+# MEN - ジャケット/アウター
+- category_id: men-outwear
+  gender: MEN
+  name: ジャケット/アウター
+  url: https://cdn.nugu.jp/public/b4765e027805ede224fd2914a60be51c.png
+  sub_category_ids:
+  query_set:
+    or:
+      - text: ジャケット
+        operator: and
+      - text: アウター
+        operator: and
+
+# MEN - パンツ
+- category_id: men-pants
+  gender: MEN
+  name: パンツ
+  url: https://cdn.nugu.jp/public/eee1373e69781d4dc2ab6894779df1dd.jpg
+  sub_category_ids:
+  query_set:
+    or:
+      - text: パンツ
+        operator: and
