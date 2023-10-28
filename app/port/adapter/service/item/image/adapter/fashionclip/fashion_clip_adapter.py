@@ -2,7 +2,7 @@ import os
 
 import boto3
 import sagemaker
-from injector import singleton, inject
+from injector import singleton
 from sagemaker import Predictor
 from slf4py import set_logger
 
@@ -10,7 +10,6 @@ from domain.model.color import Color
 from domain.model.item import ItemName
 from domain.model.url import URL
 from port.adapter.service.item.image.adapter import ColorAdapter
-from port.adapter.service.item.image.adapter.estimator.translator import ColorTranslator
 
 
 @set_logger
@@ -34,6 +33,7 @@ class FashionClipAdapter(ColorAdapter):
             }
             self.log.debug(f"payload = {payload}")
             response = self.__sagemaker_predictor.predict(payload)
+            self.log.debug(f"response = {response}")
             colors = []
             for i, labels in enumerate(response):
                 k = max(labels, key=labels.get)
