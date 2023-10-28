@@ -16,9 +16,7 @@ from port.adapter.service.item.image.adapter.estimator.translator import ColorTr
 @set_logger
 @singleton
 class FashionClipAdapter(ColorAdapter):
-    @inject
-    def __init__(self, color_translator: ColorTranslator):
-        self.__color_translator = color_translator
+    def __init__(self):
         self.__sagemaker_predictor = Predictor(
             endpoint_name='fashion-clip',
             sagemaker_session=sagemaker.Session(boto_session=boto3.Session(profile_name=os.environ.get("AWS_PROFILE"))),
@@ -36,11 +34,8 @@ class FashionClipAdapter(ColorAdapter):
             }
             self.log.debug(f"payload = {payload}")
             response = self.__sagemaker_predictor.predict(payload)
-            if response['status_code'] != 200:
-                raise Exception('Fashion CLIP との通信に失敗しました。')
-
             colors = []
-            for i, labels in enumerate(response.json()):
+            for i, labels in enumerate(response):
                 k = max(labels, key=labels.get)
                 label = k.split(' ')[0]
                 colors.append(Color.value_of(label))
