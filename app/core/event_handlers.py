@@ -20,7 +20,7 @@ from port.adapter.persistence.repository.mysql.item import MySQLItemRepository
 from port.adapter.service.item.image import ItemImageServiceImpl, ItemImageStorageServiceImpl
 from port.adapter.service.item.image.adapter import ColorAdapter, ImageTypeAdapter, ImageStorageAdapter
 from port.adapter.service.item.image.adapter.estimator import EstimatorImageTypeAdapter
-from port.adapter.service.item.image.adapter.huggingface import FashionImagesPerspectivesAdapter, FashionCLIPAdapter
+from port.adapter.service.item.image.adapter.fashionclip import FashionClipAdapter
 from port.adapter.service.item.image.adapter.s3 import ImageS3Adapter
 from port.adapter.standalone.adapterstub import ColorAdapterStub
 from port.adapter.standalone.inmemory import InMemCategoryRepository, InMemItemRepository
@@ -35,7 +35,7 @@ async def startup_handler() -> NoReturn:
     DIContainer.instance().register(DI.of(ItemIdFactory, {}, ItemIdFactoryImpl))
     DIContainer.instance().register(DI.of(ItemImageService, {}, ItemImageServiceImpl))
     DIContainer.instance().register(DI.of(ItemImageStorageService, {}, ItemImageStorageServiceImpl))
-    DIContainer.instance().register(DI.of(ColorAdapter, {'adapterstub': ColorAdapterStub}, FashionCLIPAdapter))
+    DIContainer.instance().register(DI.of(ColorAdapter, {'adapterstub': ColorAdapterStub}, FashionClipAdapter))
     DIContainer.instance().register(DI.of(ImageStorageAdapter, {}, ImageS3Adapter))
     DIContainer.instance().register(DI.of(ImageTypeAdapter, {}, EstimatorImageTypeAdapter))
     DIContainer.instance().register(DI.of(CategoryRepository,
