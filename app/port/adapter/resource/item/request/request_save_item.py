@@ -13,6 +13,7 @@ class RequestSaveItem(BaseModel):
     class Image(BaseModel):
         type: str = Field(title="画像タイプ")
         color: str = Field(title="アイテムカラー")
+        thumbnail: Optional[str] = Field(title="サムネイル画像のファイルパス")
         url: str = Field(title="アイテムの画像のURL", regex=r"^https?://[\w/:%#\$&\?\(\)~\.=\+\-]+")
 
     id: Optional[str] = Field(default=None, title="アイテムID", description="未指定の場合はIDを自動生成します")

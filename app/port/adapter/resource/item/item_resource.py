@@ -41,7 +41,7 @@ def save(request: RequestSaveItem):
         price=request.price,
         description=request.description,
         gender=request.gender,
-        images=[SaveItemCommand.Image(image.type, image.color, image.url) for image in request.images],
+        images=[SaveItemCommand.Image(image.type, image.color, image.thumbnail, image.url) for image in request.images],
         url=request.url,
         meta=SaveItemCommand.Meta(
             keywords=request.meta.keywords,

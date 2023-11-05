@@ -8,7 +8,7 @@ from domain.model.color import Color
 from domain.model.gender import Gender
 from domain.model.item import Item, ItemName, BrandName, Price, ItemIndex, Description
 from domain.model.item.id import ItemId, ItemIdFactory
-from domain.model.item.image import ItemImageList, ItemImage, ImageType
+from domain.model.item.image import ItemImageList, ItemImage, ImageType, ItemImageStorageService, ImagePath
 from domain.model.page import Page
 from domain.model.url import URL
 from exception import SystemException, ErrorCode
@@ -19,8 +19,10 @@ class ItemApplicationService:
     @inject
     def __init__(self,
                  item_index: ItemIndex,
+                 item_image_storage_service: ItemImageStorageService,
                  item_id_factory: ItemIdFactory):
         self.__item_index = item_index
+        self.__item_image_storage_service = item_image_storage_service
         self.__item_id_factory = item_id_factory
 
     def save(self, command: SaveItemCommand):
@@ -29,13 +31,24 @@ class ItemApplicationService:
         else:
             item_id = ItemId(command.id)
 
+        item_images = []
+        for image in command.images:
+            image_type = ImageType[image.type]
+            color = Color[image.color]
+            image_url = URL(image.url)
+            if not image.thumbnail:
+                thumbnail = self.__item_image_storage_service.upload(image_url, (215, 1000))
+                if thumbnail is None:
+                    continue
+            else:
+                thumbnail = ImagePath(image.thumbnail)
+            item_images.append(ItemImage(image_type, color, image_url, thumbnail))
+
         item = Item(
             item_id, ItemName(command.name), BrandName(command.brand_name),
             Price(command.price, Price.Currency.JPY),
             Description(command.description), Gender[command.gender],
-            ItemImageList(
-                [ItemImage(ImageType[image.type], Color[image.color], URL(image.url)) for image in command.images]
-            ),
+            ItemImageList(item_images),
             Page(URL(command.url), command.meta.keywords, command.meta.description))
 
         self.__item_index.add(item)

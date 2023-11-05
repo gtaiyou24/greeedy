@@ -13,6 +13,7 @@ class SaveItemCommand:
     class Image:
         type: str
         color: str
+        thumbnail: Optional[str]
         url: str
 
     id: Optional[str]
